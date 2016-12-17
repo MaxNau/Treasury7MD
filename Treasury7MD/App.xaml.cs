@@ -12,5 +12,6 @@ namespace Treasury7MD
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }

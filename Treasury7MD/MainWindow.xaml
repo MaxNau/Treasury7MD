@@ -4,9 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Treasury7MD"
+        xmlns:viewModels="clr-namespace:Treasury7MD.ViewModels"
+        xmlns:views="clr-namespace:Treasury7MD.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" WindowState="Maximized">
+    <StackPanel>
+        <Menu x:Name="menu" HorizontalAlignment="Left" MinHeight="18" VerticalAlignment="Top">
+            <MenuItem Header="Довідники">
+                <MenuItem Header="Довідники КВК для установи" MaxHeight="18" Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Відомча класифікація" MaxHeight="18"></MenuItem>
+                <MenuItem Header="Функціональна класифікація" MaxHeight="18"></MenuItem>
+                <MenuItem Header="Економічна класифікація" MaxHeight="18"></MenuItem>
+                <MenuItem Header="Показники звітності форм" MaxHeight="18"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*" MinHeight="100"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <views:OrganizationInfoView Grid.Row="0"></views:OrganizationInfoView>
+            
+                <views:Form7MDTableHeadeView Grid.Row="1" ScrollViewer.CanContentScroll="True" ></views:Form7MDTableHeadeView>
+                
+        </Grid>
+    </StackPanel>
 </Window>

@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="Treasury7MD.Views.OrganizationInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Treasury7MD.Views"
+             mc:Ignorable="d" 
+             Width="Auto" Height="350">
+    <Grid Margin="20">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="14"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="Margin" Value="2"></Setter>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="FontSize" Value="14"></Setter>
+                <Setter Property="MaxHeight" Value="20"></Setter>
+                <Setter Property="MinWidth" Value="50"></Setter>
+                <Setter Property="Margin" Value="2"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Звіт" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="1" Text="про заборгованість за бюджетними коштами (форма № 7д, № 7м)" HorizontalAlignment="Center"></TextBlock>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="на"></TextBlock>
+            <TextBlock Text="01"></TextBlock>
+            <TextBox Name="MonthTb"></TextBox>
+            <TextBox Name="YearTb"></TextBox>
+            <TextBlock Text="р."></TextBlock>
+        </StackPanel>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="8*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Установа"></TextBlock>
+            <TextBox Grid.Column="1"></TextBox>
+            <TextBlock Grid.Column="2" Text="ЄДРПОУ"></TextBlock>
+            <TextBox Grid.Column="3"></TextBox>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="8*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Територія"></TextBlock>
+            <TextBox Grid.Column="1"></TextBox>
+            <TextBlock Grid.Column="2" Text="КОАТУУ"></TextBlock>
+            <TextBox Grid.Column="3"></TextBox>
+        </Grid>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Організаційно-правова форма господарювання"></TextBlock>
+            <TextBox Grid.Column="1"></TextBox>
+            <TextBlock Grid.Column="2" Text="КОПФГ"></TextBlock>
+            <TextBox Grid.Column="3"></TextBox>
+        </Grid>
+        <StackPanel Grid.Row="6" Orientation="Horizontal">
+            <TextBlock Text="Код та назва відомчої класифікації видатків та кредитування державного бюджету"></TextBlock>
+            <TextBox Width="495"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Orientation="Horizontal">
+            <TextBlock Text="Код та назва програмної класифікації видатків та кредитування державного бюджету"></TextBlock>
+            <TextBox Width="490"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="8" Orientation="Horizontal">
+            <TextBlock Text="Код та назва типової відомчої класифікації видатків та кредитування місцевих бюджетів"></TextBlock>
+            <TextBox Width="455"></TextBox>
+        </StackPanel>
+        <TextBlock Grid.Row="9" Text="Код та назва програмної класифікації видатків та кредитування місцевих бюджетів (код та назва Типової програмної класифікації видатків та кредиту-"></TextBlock>
+        <TextBlock Grid.Row="10" Text="вання місцевих бюджетів / Тимчасової класифікації видатків та кредитування для бюджетів місцевого самоврядування, які не застосовують програмно-"></TextBlock>
+        <StackPanel Grid.Row="11" Orientation="Horizontal">
+            <TextBlock Text="цільового методу)*"></TextBlock>
+            <TextBox Width="600"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="12" Orientation="Horizontal">
+            <TextBlock Text="Періодичність:"></TextBlock>
+            <RadioButton Content="Місячна" IsChecked="true" VerticalContentAlignment="Center"/>
+            <RadioButton Content="Квартальна" VerticalContentAlignment="Center"/>
+            <RadioButton Content="Річна" VerticalContentAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Treasury7MD.DB.KEKV">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <Members>
+      <Property Name="Form" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Treasury7MD.DB.KEKV.KEKVCode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DB\KEKV.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAQAAAAAAAACQAACAAAEAAABgAAAEAAAA=</HashCode>
+      <FileName>DB\KEKV.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AccountsReceivable" />
+      <Property Name="AccountsPayable" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Treasury7MD.DB.AccountsReceivable">
+    <Position X="7.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DB\AccountsReceivable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Treasury7MD.DB.AccountsPayable">
+    <Position X="7.5" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DB\AccountsPayable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Treasury7MD.Models.Debt">
+    <Position X="10" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIgAAAAAAAAAAAAAAAAAAAABAAAAACAAAAAAAA=</HashCode>
+      <FileName>Models\Debt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Treasury7MD.Models.PropertyChangedObserver" Collapsed="true">
+    <Position X="10.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PropertyChangedObserver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
