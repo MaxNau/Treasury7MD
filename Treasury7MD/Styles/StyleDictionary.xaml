@@ -18,7 +18,7 @@
                 <BeginStoryboard>
                     <Storyboard>
                         <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsReadOnly">
-                            <DiscreteBooleanKeyFrame KeyTime="00:00:01" Value="False"></DiscreteBooleanKeyFrame>
+                            <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="False"></DiscreteBooleanKeyFrame>
                         </BooleanAnimationUsingKeyFrames>
                     </Storyboard>
                 </BeginStoryboard>
@@ -27,7 +27,7 @@
                 <BeginStoryboard>
                     <Storyboard>
                         <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsReadOnly">
-                            <DiscreteBooleanKeyFrame KeyTime="00:00:01" Value="True"></DiscreteBooleanKeyFrame>
+                            <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="True"></DiscreteBooleanKeyFrame>
                         </BooleanAnimationUsingKeyFrames>
                     </Storyboard>
                 </BeginStoryboard>

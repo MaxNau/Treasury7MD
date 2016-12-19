@@ -151,59 +151,26 @@
                         <DataGridTemplateColumn Header="5">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheEndTbl}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}">
-                                        <interactivity:Interaction.Triggers>
-                                            <interactivity:EventTrigger EventName="MouseDoubleClick">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="false"/>
-                                            </interactivity:EventTrigger>
-                                            <interactivity:EventTrigger EventName="LostFocus">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="true"/>
-                                            </interactivity:EventTrigger>
-                                            <interactions:DataTrigger Binding="{Binding Name, Converter={StaticResource Converterz}}" Value="true">
-                                                <interactions:ChangePropertyAction TargetName="{Binding RelativeSource={RelativeSource TemplatedParent}}" PropertyName="Background" Value="Black"/>
-                                            </interactions:DataTrigger>
-                                        </interactivity:Interaction.Triggers>
-                                    </customControlls:NumericTextBox>
+                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheEndTbl}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="6">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecOverdueTbl}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}">
-                                        <interactivity:Interaction.Triggers>
-                                            <interactivity:EventTrigger EventName="MouseDoubleClick">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="false"/>
-                                            </interactivity:EventTrigger>
-                                            <interactivity:EventTrigger EventName="LostFocus">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="true"/>
-                                            </interactivity:EventTrigger>
-                                        </interactivity:Interaction.Triggers>
-
-                                    </customControlls:NumericTextBox>
+                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecOverdueTbl}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="6">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecWrittenOffTbl}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}">
-                                        <interactivity:Interaction.Triggers>
-                                            <interactivity:EventTrigger EventName="MouseDoubleClick">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="false"/>
-                                            </interactivity:EventTrigger>
-                                            <interactivity:EventTrigger EventName="LostFocus">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="true"/>
-                                            </interactivity:EventTrigger>
-                                        </interactivity:Interaction.Triggers>
-                                    </customControlls:NumericTextBox>
+                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecWrittenOffTbl}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-
                     </DataGrid.Columns>
                 </DataGrid>
-
             </Grid>
         </ScrollViewer>
         <Button Click="Button_Click_1"/>
