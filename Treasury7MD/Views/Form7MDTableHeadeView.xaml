@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModels="clr-namespace:Treasury7MD.ViewModels"
              xmlns:customControlls="clr-namespace:Treasury7MD.CustomControls"
+             xmlns:helpers="clr-namespace:Treasury7MD.Helpers"
              xmlns:views="clr-namespace:Treasury7MD.Views"
              xmlns:primitives="clr-namespace:System;assembly=mscorlib"
              xmlns:interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -15,417 +16,152 @@
         <viewModels:Form7MDViewModel></viewModels:Form7MDViewModel>
     </UserControl.DataContext>
     <UserControl.Resources>
-    <Style x:Key="DatagridTextboxStyle" TargetType="TextBox">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Cursor" Value="Arrow"></Setter>
-                </Trigger>
-                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="0">
-                    <Setter Property="Text" Value="xxx"></Setter>
-                </DataTrigger>
-            </Style.Triggers>
-            <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="CaretBrush" Value="Transparent"></Setter>
-    </Style>
+        <helpers:Converter x:Key="Converterz"></helpers:Converter>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Name="x" Grid.Row="0" Margin="20,5,20,0">
+        <Grid x:Name="x" Grid.Row="0" Margin="20,5,20,0">
             <Grid.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="BorderThickness" Value="1"></Setter>
-                    <Setter Property="BorderBrush" Value="Black"></Setter>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
                 </Style>
             </Grid.Resources>
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
-                <ColumnDefinition Width="0.75*"></ColumnDefinition>
-                <ColumnDefinition Width="0.75*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="1.25*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.25*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2.5*"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Grid.RowSpan="4">
-                <TextBlock Name="IndicatorTbl" Text="Показники" TextAlignment="Center"></TextBlock>
+                <TextBlock x:Name="IndicatorTbl" Text="Показники" TextAlignment="Center"/>
             </Border>
             <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="4">
-                <TextBlock Name="KEKVTbl" Text="КЕКВ" TextAlignment="Center"></TextBlock>
+                <TextBlock x:Name="KEKVTbl" Text="КЕКВ" TextAlignment="Center"/>
             </Border>
             <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="4">
-                <TextBlock Name="RowCodeTbl" Text="Код рядка" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock x:Name="RowCodeTbl" Text="Код рядка" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="4">
-                <TextBlock Text="Дебіторська заборгованіст" TextAlignment="Center"></TextBlock>
+                <TextBlock Text="Дебіторська заборгованіст" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="3" Grid.Row="1" Grid.RowSpan="3">
-                <TextBlock Name="AccRecAtTheBeginingTbl" Text="на початок звітного року, усього" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock x:Name="AccRecAtTheBeginingTbl" Text="на початок звітного року, усього" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2">
-                <TextBlock Text="на кінець звітного періоду (року)" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Text="на кінець звітного періоду (року)" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="4" Grid.Row="2" Grid.RowSpan="2">
-                <TextBlock Name="AccRecAtTheEndTbl" Text="усього" TextAlignment="Center"></TextBlock>
+                <TextBlock x:Name="AccRecAtTheEndTbl" Text="усього" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="5" Grid.Row="2" Grid.RowSpan="2">
-                <TextBlock Name="AccRecOverdueTbl" Text="з неї прострочена" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock x:Name="AccRecOverdueTbl" Text="з неї прострочена" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="6" Grid.Row="1" Grid.RowSpan="3">
-                <TextBlock Name="AccRecWrittenOffTbl" Text="списана за період з початку звітного року" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock x:Name="AccRecWrittenOffTbl" Text="списана за період з початку звітного року" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="7" Grid.Row="0" Grid.ColumnSpan="5">
-                <TextBlock Text="Кредиторська заборгованість" TextAlignment="Center"></TextBlock>
+                <TextBlock Text="Кредиторська заборгованість" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="7" Grid.Row="1" Grid.RowSpan="3">
-                <TextBlock Text="на початок звітного року, усього" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Text="на початок звітного року, усього" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="8" Grid.Row="1" Grid.ColumnSpan="3">
-                <TextBlock Text="на кінець звітного періоду (року)" TextAlignment="Center"></TextBlock>
+                <TextBlock Text="на кінець звітного періоду (року)" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="8" Grid.Row="2" Grid.RowSpan="2">
-                <TextBlock Text="усього" TextAlignment="Center"></TextBlock>
+                <TextBlock Text="усього" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="9" Grid.Row="2" Grid.ColumnSpan="2">
-                <TextBlock Text="з неї" TextAlignment="Center"></TextBlock>
+                <TextBlock Text="з неї" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="9" Grid.Row="3">
-                <TextBlock Text="прострочена" TextAlignment="Center"></TextBlock>
+                <TextBlock Text="прострочена" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="10" Grid.Row="3">
-                <TextBlock Text="термін оплати якої не настав" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Text="термін оплати якої не настав" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="10" Grid.Row="3">
-                <TextBlock Text="термін оплати якої не настав" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Text="термін оплати якої не настав" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="11" Grid.Row="1" Grid.RowSpan="3">
-                <TextBlock Text="списана за період з початку звітного року" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Text="списана за період з початку звітного року" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
-        <Border Grid.Column="12" Grid.Row="0" Grid.RowSpan="4">
-            <TextBlock Text="Зареєстровані бюджетні фінансові зобовязання на кінець звітного періоду (року)" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-        </Border>
-    </Grid>
+            <Border Grid.Column="12" Grid.Row="0" Grid.RowSpan="4">
+                <TextBlock Text="Зареєстровані бюджетні фінансові зобовязання на кінець звітного періоду (року)" TextAlignment="Center" TextWrapping="Wrap"/>
+            </Border>
+        </Grid>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch">
-        <Grid Margin="20,0,0,20" >
-            <Grid.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="BorderThickness" Value="1"></Setter>
-                    <Setter Property="BorderBrush" Value="Black"></Setter>
-                </Style>
-            </Grid.Resources>
-            <!--<Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
-                <ColumnDefinition Width="0.75*"></ColumnDefinition>
-                <ColumnDefinition Width="0.75*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="1.25*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="2.5*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Grid.Row="5" >
-                <Button Name="b" Content="Доходи" Click="Button_Click" ></Button>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="6" >
-                <TextBlock Text="Видатки - усього на утримання установи" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="7" >
-                <TextBlock Text="у тому числі: Поточні видатки" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="8" >
-                <TextBlock Text="Оплата праці і нарахування на заробітну плату" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="9" >
-                <TextBlock Text="Оплата праці" TextAlignment="Center"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="10" >
-                <TextBlock Text="Заробітна плата" TextAlignment="Center"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="11" >
-                <TextBlock Text="Грошове забезпечення військовослужбовців" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="12" >
-                <TextBlock Text="Нарахування на оплату праці" TextAlignment="Center"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="13" >
-                <TextBlock Text="Використання товарів і послуг" TextAlignment="Center"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="14" >
-                <TextBlock Text="Предмети, матеріали, обладнання та інвентар" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="15" >
-                <TextBlock Text="Медикаменти та перевязувальні матеріали" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="16" >
-                <TextBlock Text="Продукти харчування" TextAlignment="Center"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="17" >
-                <TextBlock Text="Оплата послуг (крім комунальних)" TextAlignment="Center"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="18" >
-                <TextBlock Text="Видатки на відрядження" TextAlignment="Center"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="19" >
-                <TextBlock Text="Видатки на заходи спеціального призначення" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="20" >
-                <TextBlock Text="Оплата комунальних послуг та енергоносіїв" TextAlignment="Center"></TextBlock>
-            </Border>
-                <Border Grid.Column="0" Grid.Row="21" >
-                    <TextBlock Text="Оплата теплопостачання" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="22" >
-                    <TextBlock Text="Оплата водопостачання та водовідведення" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="23" >
-                    <TextBlock Text="Оплата електроенергії" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="24" >
-                    <TextBlock Text="Оплата природного газу" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="25" >
-                    <TextBlock Text="Оплата інших енергоносіїв" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="26" >
-                    <TextBlock Text="Оплата енергосервісу" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="27" >
-                    <TextBlock Text="Дослідження і розробки, окремі заходи по реалізації державних (регіональних) програм" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="28" >
-                    <TextBlock Text="  Дослідження і розробки, окремі заходи розвитку по реалізації державних (регіональних) програм" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="29" >
-                    <TextBlock Text="Окремі заходи по реалізації державних (регіональних) програм, не віднесені до заходів розвитку" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="30" >
-                    <TextBlock Text="Обслуговування боргових зобовязань" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="31" >
-                    <TextBlock Text="Обслуговування внутрішніх боргових зобовязань" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="32" >
-                    <TextBlock Text="Обслуговування зовнішніх боргових зобовязань" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="33" >
-                    <TextBlock Text="Поточні трансфери" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="34" >
-                    <TextBlock Text="Субсидії та поточні трансферти підприємствам (установам, організаціям)" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="35" >
-                    <TextBlock Text="Обслуговування зовнішніх боргових зобовязань" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="36" >
-                    <TextBlock Text="Поточні трансферти органам державного управління інших рівнів" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="37" >
-                    <TextBlock Text="Поточні трансферти  урядам іноземних держав та міжнародним організаціям" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="38" >
-                    <TextBlock Text="Соціальне забезпечення" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="39" >
-                    <TextBlock Text="Виплата пенсій і допомоги" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="40" >
-                    <TextBlock Text="Стипендії" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="41" >
-                    <TextBlock Text="Інші виплати населенню" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="42" >
-                    <TextBlock Text="Інші поточні видатки" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="43" >
-                    <TextBlock Text="Капітальні видатки" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="44" >
-                    <TextBlock Text="Придбання основного капіталу" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="45" >
-                    <TextBlock Text="Придбання обладнання і предметів довгострокового користування" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="46" >
-                    <TextBlock Text="Капітальне будівницттво (придбання)" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="47" >
-                    <TextBlock Text="Капітальне будівницттво (придбання) житла" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="48" >
-                    <TextBlock Text="Капітальне будівницттво (придбання) інших обєктів" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="49" >
-                    <TextBlock Text="Капітальне ремонт" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="50" >
-                    <TextBlock Text="Капітальний ремонт житлового фонду (приміщень)" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="51" >
-                    <TextBlock Text="Капітальний ремонт інших обєктів" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="52" >
-                    <TextBlock Text="Реконструкція та реставрація" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="53" >
-                    <TextBlock Text="Реконструкція житлового фонду (приміщень)" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="54" >
-                    <TextBlock Text="Реконструкція та реставрація інших обєктів" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="55" >
-                    <TextBlock Text="Реставрація памяток культури, історії та архітектури" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="56" >
-                    <TextBlock Text="Створення державних запасів і резервів" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="57" >
-                    <TextBlock Text="Придбання землі та нематеріальних активів" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="58" >
-                    <TextBlock Text="Капітальні трансферти" TextAlignment="Center"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="59" >
-                    <TextBlock Text="Капітальні трансферти підприємствам (установам, організаціям)" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="60" >
-                    <TextBlock Text="Капітальні трансферти органам державного управління інших рівнів" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="61" >
-                    <TextBlock Text="Капітальні трансферти урядам іноземних держав та міжнародним організаціям" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="62" >
-                    <TextBlock Text="Капітальні трансферти населенню" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                </Border>-->
+            <Grid Margin="20,0,0,20" >
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                    </Style>
+                </Grid.Resources>
 
-                <DataGrid Name="dg" ItemsSource="{Binding KEKVs}" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0" SelectionUnit="Cell">
+                <DataGrid x:Name="dg" ItemsSource="{Binding KEKVs}" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0" SelectionUnit="Cell">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="1">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Width="{Binding ElementName=IndicatorTbl, Path=ActualWidth}" Text="{Binding Indicator, Mode=TwoWay}" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Width="{Binding ActualWidth, ElementName=IndicatorTbl}" Text="{Binding Indicator, Mode=TwoWay}" TextWrapping="Wrap"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="2">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Width="{Binding ElementName=KEKVTbl, Path=ActualWidth}" Text="{Binding Name, Mode=TwoWay}" TextWrapping="WrapWithOverflow"></TextBlock>
+                                    <TextBlock Width="{Binding ActualWidth, ElementName=KEKVTbl}" Text="{Binding Name, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="3">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Width="{Binding ElementName=RowCodeTbl, Path=ActualWidth}" Text="{Binding RowCode, Mode=TwoWay}" TextWrapping="WrapWithOverflow"></TextBlock>
+                                    <TextBlock Width="{Binding ActualWidth, ElementName=RowCodeTbl}" Text="{Binding RowCode, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="4">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource DatagridTextboxStyle}" IsReadOnly="false" Width="{Binding ElementName=AccRecAtTheBeginingTbl, Path=ActualWidth}" Text="{Binding AccountsReceivable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}">
-                                    </customControlls:NumericTextBox>
+                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheBeginingTbl}" Text="{Binding AccountsReceivable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="5">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource DatagridTextboxStyle}" IsReadOnly="true" Width="{Binding ElementName=AccRecAtTheEndTbl, Path=ActualWidth}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}">
+                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheEndTbl}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}">
                                         <interactivity:Interaction.Triggers>
                                             <interactivity:EventTrigger EventName="MouseDoubleClick">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="false">
-                                                </interactions:ChangePropertyAction>
+                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="false"/>
                                             </interactivity:EventTrigger>
                                             <interactivity:EventTrigger EventName="LostFocus">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="true">
-                                                </interactions:ChangePropertyAction>
+                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="true"/>
                                             </interactivity:EventTrigger>
+                                            <interactions:DataTrigger Binding="{Binding Name, Converter={StaticResource Converterz}}" Value="true">
+                                                <interactions:ChangePropertyAction TargetName="{Binding RelativeSource={RelativeSource TemplatedParent}}" PropertyName="Background" Value="Black"/>
+                                            </interactions:DataTrigger>
                                         </interactivity:Interaction.Triggers>
                                     </customControlls:NumericTextBox>
                                 </DataTemplate>
@@ -434,17 +170,16 @@
                         <DataGridTemplateColumn Header="6">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource DatagridTextboxStyle}" IsReadOnly="true" Width="{Binding ElementName=AccRecOverdueTbl, Path=ActualWidth}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}">
+                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecOverdueTbl}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}">
                                         <interactivity:Interaction.Triggers>
                                             <interactivity:EventTrigger EventName="MouseDoubleClick">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="false">
-                                                </interactions:ChangePropertyAction>
+                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="false"/>
                                             </interactivity:EventTrigger>
                                             <interactivity:EventTrigger EventName="LostFocus">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="true">
-                                                </interactions:ChangePropertyAction>
+                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="true"/>
                                             </interactivity:EventTrigger>
                                         </interactivity:Interaction.Triggers>
+
                                     </customControlls:NumericTextBox>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -452,15 +187,13 @@
                         <DataGridTemplateColumn Header="6">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource DatagridTextboxStyle}" IsReadOnly="true" Width="{Binding ElementName=AccRecWrittenOffTbl, Path=ActualWidth}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}">
+                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecWrittenOffTbl}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}">
                                         <interactivity:Interaction.Triggers>
                                             <interactivity:EventTrigger EventName="MouseDoubleClick">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="false">
-                                                </interactions:ChangePropertyAction>
+                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="false"/>
                                             </interactivity:EventTrigger>
                                             <interactivity:EventTrigger EventName="LostFocus">
-                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="true">
-                                                </interactions:ChangePropertyAction>
+                                                <interactions:ChangePropertyAction PropertyName="IsReadOnly" Value="true"/>
                                             </interactivity:EventTrigger>
                                         </interactivity:Interaction.Triggers>
                                     </customControlls:NumericTextBox>
@@ -469,11 +202,10 @@
                         </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
-                    
                 </DataGrid>
 
             </Grid>
-    </ScrollViewer>
-        <Button Click="Button_Click_1"></Button>
-        </Grid>
+        </ScrollViewer>
+        <Button Click="Button_Click_1"/>
+    </Grid>
 </UserControl>

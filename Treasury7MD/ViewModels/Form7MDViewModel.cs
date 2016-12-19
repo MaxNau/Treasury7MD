@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using Treasury7MD.DB;
 using Treasury7MD.Helpers;
 using Treasury7MD.Models;
 
 namespace Treasury7MD.ViewModels
 {
-    public class Form7MDViewModel : Models.PropertyChangedObserver
+    public class Form7MDViewModel : PropertyChangedObserver
     {
         private ObservableCollection<KEKV> kekvs;
         public Form7MD Form { get; set; }
