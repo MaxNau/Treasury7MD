@@ -9,7 +9,7 @@ namespace Treasury7MD.Helpers
 {
     public class Converter : IValueConverter
     {
-        private int[] calculatingKEKVs = { 1, 2000, 2100, 2200};
+        private int[] calculatingKEKVs = { 1, 2000, 2100, 2200, 2270, 2280, 2400, 2600, 2700, 3100, 3200};
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             //throw new NotImplementedException();

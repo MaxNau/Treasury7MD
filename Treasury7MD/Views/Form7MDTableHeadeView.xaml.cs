@@ -50,8 +50,7 @@ namespace Treasury7MD.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var d = x.DataContext;
-            var c = dg.DataContext;
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

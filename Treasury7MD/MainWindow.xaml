@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:Treasury7MD.Views"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized">
-    <StackPanel>
+    <Grid>
         <Menu x:Name="menu" HorizontalAlignment="Left" MinHeight="18" VerticalAlignment="Top">
             <MenuItem Header="Довідники">
                 <MenuItem Header="Довідники КВК для установи" MaxHeight="18" Click="MenuItem_Click"></MenuItem>
@@ -18,16 +18,20 @@
                 <MenuItem Header="Показники звітності форм" MaxHeight="18"></MenuItem>
             </MenuItem>
         </Menu>
-        <Grid >
+        <Grid Name="g" >
             <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="20"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*" MinHeight="100"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Name="x" Height="*" MinHeight="100"></RowDefinition>
+  
             </Grid.RowDefinitions>
-            <views:OrganizationInfoView Grid.Row="0"></views:OrganizationInfoView>
+            <Button Content="Collapse" Click="Button_Click"></Button>
+            <views:OrganizationInfoView x:Name="z" Grid.Row="1"></views:OrganizationInfoView>
             
-                <views:Form7MDTableHeadeView Grid.Row="1" ScrollViewer.CanContentScroll="True" ></views:Form7MDTableHeadeView>
-                
+               
+                    <views:Form7MDTableHeadeView Grid.Row="2" ></views:Form7MDTableHeadeView>
+
+           
         </Grid>
-    </StackPanel>
+       </Grid>
 </Window>

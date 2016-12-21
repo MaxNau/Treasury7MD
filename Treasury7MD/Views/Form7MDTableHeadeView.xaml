@@ -6,12 +6,8 @@
              xmlns:viewModels="clr-namespace:Treasury7MD.ViewModels"
              xmlns:customControlls="clr-namespace:Treasury7MD.CustomControls"
              xmlns:helpers="clr-namespace:Treasury7MD.Helpers"
-             xmlns:views="clr-namespace:Treasury7MD.Views"
-             xmlns:primitives="clr-namespace:System;assembly=mscorlib"
-             xmlns:interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:interactions="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" 
-             d:DesignWidth="480" Height="300" Loaded="UserControl_Loaded">
+>
     <UserControl.DataContext>
         <viewModels:Form7MDViewModel></viewModels:Form7MDViewModel>
     </UserControl.DataContext>
@@ -20,26 +16,21 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3.5*"/>
+            <RowDefinition Height="0.15*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="x" Grid.Row="0" Margin="20,5,20,0">
-            <Grid.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="BorderBrush" Value="Black"/>
-                </Style>
-            </Grid.Resources>
+        <Grid Style="{StaticResource FormGridBorderStyle}" Grid.Row="0" Margin="20,5,20,0" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="0.75*"/>
-                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="1.25*"/>
@@ -109,8 +100,8 @@
                 <TextBlock Text="Зареєстровані бюджетні фінансові зобовязання на кінець звітного періоду (року)" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
         </Grid>
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch">
-            <Grid Margin="20,0,0,20" >
+        
+            <Grid Grid.Row="1" Style="{StaticResource FormGridBorderStyle}" Margin="20,0,0,20" >
                 <Grid.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="BorderThickness" Value="1"/>
@@ -118,51 +109,52 @@
                     </Style>
                 </Grid.Resources>
 
-                <DataGrid x:Name="dg" ItemsSource="{Binding KEKVs}" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0" SelectionUnit="Cell">
+
+                    <DataGrid x:Name="dg" ItemsSource="{Binding KEKVs}" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0" SelectionUnit="Cell" VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="1">
+                    <DataGridTemplateColumn Header="1">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Width="{Binding ActualWidth, ElementName=IndicatorTbl}" Text="{Binding Indicator, Mode=TwoWay}" TextWrapping="Wrap"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="2">
+                    <DataGridTemplateColumn Header="2">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Width="{Binding ActualWidth, ElementName=KEKVTbl}" Text="{Binding Name, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="3">
+                    <DataGridTemplateColumn Header="3">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Width="{Binding ActualWidth, ElementName=RowCodeTbl}" Text="{Binding RowCode, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="4">
+                    <DataGridTemplateColumn Header="4">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheBeginingTbl}" Text="{Binding AccountsReceivable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="5">
+                    <DataGridTemplateColumn Header="5">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheEndTbl}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="6">
+                    <DataGridTemplateColumn Header="6">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecOverdueTbl}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="6">
+                    <DataGridTemplateColumn Header="6">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecWrittenOffTbl}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}"/>
@@ -171,8 +163,9 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </Grid>
-        </ScrollViewer>
-        <Button Click="Button_Click_1"/>
+
+        </Grid>
+        
+        <Button Grid.Row="2" Click="Button_Click_1" MaxHeight="30"/>
     </Grid>
 </UserControl>

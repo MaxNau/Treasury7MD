@@ -49,4 +49,14 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="FormGridBorderStyle" TargetType="{x:Type Grid}">
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+            </Style>
+        </Style.Resources>
+    </Style>
+    
 </ResourceDictionary>
