@@ -25,7 +25,6 @@ namespace Treasury7MD.Views
         public Form7MDTableHeadeView()
         {
             InitializeComponent();
-
             
             /*  using (var context = new DB.TreasuryDBEntities1())
               {
@@ -55,7 +54,12 @@ namespace Treasury7MD.Views
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ((Form7MDViewModel)DataContext).SaveForm();
+            //((Form7MDViewModel)DataContext).SaveForm();
+        }
+
+        private void TextBlock_LayoutUpdated(object sender, EventArgs e)
+        {
+            double d = z.ActualWidth;
         }
     }
 }

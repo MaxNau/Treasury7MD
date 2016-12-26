@@ -17,7 +17,7 @@ namespace Treasury7MD.CustomControls
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key < Key.D0 || e.Key > Key.D9)
+            if (e.Key != Key.Decimal & e.Key < Key.D0 || e.Key > Key.D9)
             {
                 if (e.Key < Key.NumPad0 || e.Key > Key.NumPad9)
                 {
@@ -25,6 +25,15 @@ namespace Treasury7MD.CustomControls
                     {
                         e.Handled = true;
                     }
+                }
+            }
+
+            if (e.Key == Key.OemPeriod)
+            {
+                e.Handled = false;
+                if (Text.IndexOf('.') > -1)
+                {
+                    e.Handled = true;
                 }
             }
         }

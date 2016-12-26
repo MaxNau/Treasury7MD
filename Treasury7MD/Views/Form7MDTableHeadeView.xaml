@@ -6,25 +6,81 @@
              xmlns:viewModels="clr-namespace:Treasury7MD.ViewModels"
              xmlns:customControlls="clr-namespace:Treasury7MD.CustomControls"
              xmlns:helpers="clr-namespace:Treasury7MD.Helpers"
-             mc:Ignorable="d" 
->
+             xmlns:views="clr-namespace:Treasury7MD.Views"
+             xmlns:interactions="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" >
+    
     <UserControl.DataContext>
         <viewModels:Form7MDViewModel></viewModels:Form7MDViewModel>
     </UserControl.DataContext>
     <UserControl.Resources>
+        <DataTemplate x:Key="View2Template" DataType="{x:Type viewModels:Form7MDViewModel}">
+            <views:SessionMenu />
+        </DataTemplate>
         <helpers:Converter x:Key="Converterz"></helpers:Converter>
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="cc">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.02*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.02*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="{Binding OrgInfoRowHeight}"></RowDefinition>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="3.5*"/>
-            <RowDefinition Height="0.15*"/>
         </Grid.RowDefinitions>
-        <Grid Style="{StaticResource FormGridBorderStyle}" Grid.Row="0" Margin="20,5,20,0" VerticalAlignment="Bottom">
+        <Button x:Name="collapseOrgInfoBtn" Command="{Binding CollapseOrganizationInfoCommand}" Grid.Row="0" Grid.Column="2" Margin="5">
+           
+        </Button>
+        <views:OrganizationInfoView Grid.Row="1" Grid.Column="1"></views:OrganizationInfoView>
+        <DockPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="4">
+            <Grid VerticalAlignment="Top">
+                <ListView x:Name="z" SelectedIndex="{Binding MenuSelectedItemIndex}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <interactivity:Interaction.Triggers>
+                        <interactivity:EventTrigger EventName="LayoutUpdate">
+                            <interactions:ChangePropertyAction TargetObject="{Binding ElementName=xx,  PresentationTraceSources.TraceLevel=High}" PropertyName="Height" Value="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListView}, PresentationTraceSources.TraceLevel=High}"></interactions:ChangePropertyAction>
+                            <interactions:ChangePropertyAction PropertyName="Background" Value="Green"></interactions:ChangePropertyAction>
+                        </interactivity:EventTrigger>
+                    </interactivity:Interaction.Triggers>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-270"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ListView.LayoutTransform>
+                    <TextBlock Text="Сесія"  ContextMenuService.PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" ContextMenuService.Placement="Relative" LayoutUpdated="TextBlock_LayoutUpdated" >
+                        <TextBlock.ContextMenu >
+                            <ContextMenu x:Name="xx">
+                                <views:SessionMenu></views:SessionMenu>
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                    </TextBlock>
+                    <TextBlock Text="Експорт" ContextMenuService.PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" ContextMenuService.Placement="Relative">
+                        <TextBlock.ContextMenu>
+                            <ContextMenu Height="200" Style="{StaticResource Form7Menu}">
+                                <views:SessionMenu></views:SessionMenu>
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                    </TextBlock>
+                    <TextBlock Text="Імпорт" ContextMenuService.PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" ContextMenuService.Placement="Relative"/>
+                </ListView>
+            </Grid>
+        </DockPanel>
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource FormGridBorderStyle}" Grid.Row="2" Margin="20,0" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -73,99 +129,136 @@
                 <TextBlock Text="Кредиторська заборгованість" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="7" Grid.Row="1" Grid.RowSpan="3">
-                <TextBlock Text="на початок звітного року, усього" TextAlignment="Center" TextWrapping="Wrap"/>
+                <TextBlock x:Name="AccPayAtTheBeginingTbl" Text="на початок звітного року, усього" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="8" Grid.Row="1" Grid.ColumnSpan="3">
                 <TextBlock Text="на кінець звітного періоду (року)" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="8" Grid.Row="2" Grid.RowSpan="2">
-                <TextBlock Text="усього" TextAlignment="Center"/>
+                <TextBlock x:Name="AccPayAtTheEndTbl" Text="усього" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="9" Grid.Row="2" Grid.ColumnSpan="2">
                 <TextBlock Text="з неї" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="9" Grid.Row="3">
-                <TextBlock Text="прострочена" TextAlignment="Center"/>
+                <TextBlock x:Name="AccPayOverrDueTbl" Text="прострочена" TextAlignment="Center"/>
             </Border>
             <Border Grid.Column="10" Grid.Row="3">
-                <TextBlock Text="термін оплати якої не настав" TextAlignment="Center" TextWrapping="Wrap"/>
-            </Border>
-            <Border Grid.Column="10" Grid.Row="3">
-                <TextBlock Text="термін оплати якої не настав" TextAlignment="Center" TextWrapping="Wrap"/>
+                <TextBlock x:Name="AccPayDebtNotDueTbl" Text="термін оплати якої не настав" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="11" Grid.Row="1" Grid.RowSpan="3">
-                <TextBlock Text="списана за період з початку звітного року" TextAlignment="Center" TextWrapping="Wrap"/>
+                <TextBlock x:Name="AccPayWrittenofTbl" Text="списана за період з початку звітного року" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
             <Border Grid.Column="12" Grid.Row="0" Grid.RowSpan="4">
-                <TextBlock Text="Зареєстровані бюджетні фінансові зобовязання на кінець звітного періоду (року)" TextAlignment="Center" TextWrapping="Wrap"/>
+                <TextBlock x:Name="RegisteredBudgeteryTbl" Text="Зареєстровані бюджетні фінансові зобовязання на кінець звітного періоду (року)" TextAlignment="Center" TextWrapping="Wrap"/>
             </Border>
         </Grid>
-        
-            <Grid Grid.Row="1" Style="{StaticResource FormGridBorderStyle}" Margin="20,0,0,20" >
-                <Grid.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="BorderBrush" Value="Black"/>
-                    </Style>
-                </Grid.Resources>
+
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Style="{StaticResource FormGridBorderStyle}" Margin="18,0,0,20" >
+            <Grid.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                </Style>
+            </Grid.Resources>
 
 
-                    <DataGrid x:Name="dg" ItemsSource="{Binding KEKVs}" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0" SelectionUnit="Cell" VerticalScrollBarVisibility="Visible">
-                    <DataGrid.Columns>
+            <DataGrid x:Name="dg" ItemsSource="{Binding KEKVs}" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0" SelectionUnit="Cell" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
+                <DataGrid.Columns>
                     <DataGridTemplateColumn Header="1">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Width="{Binding ActualWidth, ElementName=IndicatorTbl}" Text="{Binding Indicator, Mode=TwoWay}" TextWrapping="Wrap"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Width="{Binding ActualWidth, ElementName=IndicatorTbl}" Text="{Binding Indicator, Mode=TwoWay}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="2">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Width="{Binding ActualWidth, ElementName=KEKVTbl}" Text="{Binding Name, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Width="{Binding ActualWidth, ElementName=KEKVTbl}" Text="{Binding Name, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="3">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Width="{Binding ActualWidth, ElementName=RowCodeTbl}" Text="{Binding RowCode, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Width="{Binding ActualWidth, ElementName=RowCodeTbl}" Text="{Binding RowCode, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="4">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheBeginingTbl}" Text="{Binding AccountsReceivable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheBeginingTbl}" Text="{Binding AccountsReceivable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="5">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheEndTbl}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheEndTbl}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="6">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecOverdueTbl}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="6">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecWrittenOffTbl}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecOverdueTbl}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="7">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecWrittenOffTbl}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="8">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayAtTheBeginingTbl}" Text="{Binding AccountsPayable.AtTheBeginingOfTheYear, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="9">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayAtTheEndTbl}" Text="{Binding AccountsPayable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="10">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayOverrDueTbl}" Text="{Binding AccountsPayable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="11">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayDebtNotDueTbl}" Text="{Binding AccountsPayable.DebtNotDue, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="12">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayWrittenofTbl}" Text="{Binding AccountsPayable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="13">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=RegisteredBudgeteryTbl}" Text="{Binding RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
         </Grid>
-        
-        <Button Grid.Row="2" Click="Button_Click_1" MaxHeight="30"/>
     </Grid>
 </UserControl>

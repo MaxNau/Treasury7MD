@@ -3,10 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Treasury7MD.Views"
-             mc:Ignorable="d" 
-             Width="Auto" Height="350">
-    <Grid Margin="20">
+             mc:Ignorable="d">
+    <Grid Margin="20,5,20,0">
         <Grid.Resources>
             <Style TargetType="TextBlock">
                 <Setter Property="FontSize" Value="14"></Setter>
@@ -84,7 +82,7 @@
         </Grid>
         <StackPanel Grid.Row="6" Orientation="Horizontal">
             <TextBlock Text="Код та назва відомчої класифікації видатків та кредитування державного бюджету"></TextBlock>
-            <TextBox Width="495"></TextBox>
+            <TextBox></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="7" Orientation="Horizontal">
             <TextBlock Text="Код та назва програмної класифікації видатків та кредитування державного бюджету"></TextBlock>

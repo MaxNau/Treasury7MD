@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\MyCommand.cs" />
     <Compile Include="CustomControls\NumericTextBox.cs" />
     <Compile Include="DB\DBConnection.cs" />
     <Compile Include="DB\TreasuryEntity.cs" />
@@ -121,6 +122,9 @@
     <Compile Include="Views\OrganizationInfoView.xaml.cs">
       <DependentUpon>OrganizationInfoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SessionMenu.xaml.cs">
+      <DependentUpon>SessionMenu.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -146,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OrganizationInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SessionMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +191,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Content\Icons\Save.png" />
     <Content Include="DB\TreasuryDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

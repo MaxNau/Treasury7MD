@@ -22,14 +22,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition MaxHeight="20"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Name="x" Height="*" MinHeight="100"></RowDefinition>
-  
             </Grid.RowDefinitions>
-            <Button Content="Collapse" Click="Button_Click"></Button>
-            <views:OrganizationInfoView x:Name="z" Grid.Row="1"></views:OrganizationInfoView>
-            
-               
-                    <views:Form7MDTableHeadeView Grid.Row="2" ></views:Form7MDTableHeadeView>
+
+            <views:Form7MDTableHeadeView Grid.Row="1" ></views:Form7MDTableHeadeView>
 
            
         </Grid>

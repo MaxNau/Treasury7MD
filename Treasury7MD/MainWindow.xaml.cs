@@ -109,7 +109,7 @@ namespace Treasury7MD
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (g.RowDefinitions[1].Height.Value != 0)
+           /* if (g.RowDefinitions[1].Height.Value != 0)
             {
                 g.RowDefinitions[1].Height = new GridLength(0);
                 z.Height = 0;
@@ -119,7 +119,7 @@ namespace Treasury7MD
                 g.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
                 z.Height = 350;
             }
-            var t = this;
+            var t = this;*/
         }
     }
 }
