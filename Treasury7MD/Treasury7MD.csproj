@@ -116,6 +116,9 @@
     <Compile Include="Views\DCCDirectoryView.xaml.cs">
       <DependentUpon>DCCDirectoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExportMenuView.xaml.cs">
+      <DependentUpon>ExportMenuView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Form7MDTableHeadeView.xaml.cs">
       <DependentUpon>Form7MDTableHeadeView.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DCCDirectoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExportMenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

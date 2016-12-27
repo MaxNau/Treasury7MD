@@ -68,7 +68,7 @@
                     <TextBlock Text="Експорт" ContextMenuService.PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" ContextMenuService.Placement="Relative">
                         <TextBlock.ContextMenu>
                             <ContextMenu Height="200" Style="{StaticResource Form7Menu}">
-                                <views:SessionMenu></views:SessionMenu>
+                                <views:ExportMenuView></views:ExportMenuView>
                             </ContextMenu>
                         </TextBlock.ContextMenu>
                     </TextBlock>
@@ -196,63 +196,63 @@
                     <DataGridTemplateColumn Header="5">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheEndTbl}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheEndTbl}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="6">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecOverdueTbl}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecOverdueTbl}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="7">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecWrittenOffTbl}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecWrittenOffTbl}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="8">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayAtTheBeginingTbl}" Text="{Binding AccountsPayable.AtTheBeginingOfTheYear, Mode=TwoWay}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayAtTheBeginingTbl}" Text="{Binding AccountsPayable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="9">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayAtTheEndTbl}" Text="{Binding AccountsPayable.AtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayAtTheEndTbl}" Text="{Binding AccountsPayable.AtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="10">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayOverrDueTbl}" Text="{Binding AccountsPayable.OverdueAtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayOverrDueTbl}" Text="{Binding AccountsPayable.OverdueAtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="11">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayDebtNotDueTbl}" Text="{Binding AccountsPayable.DebtNotDue, Mode=TwoWay}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayDebtNotDueTbl}" Text="{Binding AccountsPayable.DebtNotDue, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="12">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayWrittenofTbl}" Text="{Binding AccountsPayable.WrittenOffSinceTheBeginningOfTheYear, Mode=TwoWay}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayWrittenofTbl}" Text="{Binding AccountsPayable.WrittenOffSinceTheBeginningOfTheYear, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="13">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=RegisteredBudgeteryTbl}" Text="{Binding RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod, Mode=TwoWay}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=RegisteredBudgeteryTbl}" Text="{Binding RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
