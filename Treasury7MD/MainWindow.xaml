@@ -24,9 +24,10 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <views:Form7MDTableHeadeView Grid.Row="1" ></views:Form7MDTableHeadeView>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <views:Form7MDTableHeadeView></views:Form7MDTableHeadeView>
+            </ScrollViewer>
 
-           
         </Grid>
        </Grid>
 </Window>

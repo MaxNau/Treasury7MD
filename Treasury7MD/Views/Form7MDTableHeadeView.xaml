@@ -76,7 +76,7 @@
                 </ListView>
             </Grid>
         </DockPanel>
-        <Grid Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource FormGridBorderStyle}" Grid.Row="2" Margin="20,0" VerticalAlignment="Bottom">
+        <Grid MaxWidth="{Binding CurrentDeviceWidth}" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource FormGridBorderStyle}" Grid.Row="2" Margin="20,0" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="*"/>
@@ -84,19 +84,19 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="0.4*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.25*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2.5*"/>
+                <ColumnDefinition MinWidth="100" Width="3*"/>
+                <ColumnDefinition MinWidth="30" Width="0.4*"/>
+                <ColumnDefinition MinWidth="33" Width="0.5*"/>
+                <ColumnDefinition MinWidth="70" Width="*"/>
+                <ColumnDefinition MinWidth="70" Width="*"/>
+                <ColumnDefinition MinWidth="80" Width="1.25*"/>
+                <ColumnDefinition MinWidth="70" Width="*"/>
+                <ColumnDefinition MinWidth="70" Width="*"/>
+                <ColumnDefinition MinWidth="70" Width="*"/>
+                <ColumnDefinition MinWidth="70" Width="1.5*"/>
+                <ColumnDefinition MinWidth="70" Width="1.5*"/>
+                <ColumnDefinition MinWidth="70" Width="*"/>
+                <ColumnDefinition MinWidth="80" Width="2.5*"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Grid.RowSpan="4">
                 <TextBlock x:Name="IndicatorTbl" Text="Показники" TextAlignment="Center"/>
@@ -154,7 +154,7 @@
             </Border>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Style="{StaticResource FormGridBorderStyle}" Margin="18,0,0,20" >
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Style="{StaticResource FormGridBorderStyle}" Margin="20,0,20,20" >
             <Grid.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -163,96 +163,121 @@
             </Grid.Resources>
 
 
-            <DataGrid x:Name="dg" ItemsSource="{Binding KEKVs}" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0" SelectionUnit="Cell" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
+            <DataGrid MaxWidth="{Binding CurrentDeviceWidth}" x:Name="dg" ItemsSource="{Binding KEKVs}" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0" SelectionUnit="Cell" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
+                <interactivity:Interaction.Triggers>
+                    <interactivity:EventTrigger EventName="CurrentCellChanged" >
+                        <!-- Execute a method called 'SomeMethod' defined in the view model -->
+                        <interactions:CallMethodAction TargetObject="{Binding }" MethodName="SelectionIndex"/>
+                    </interactivity:EventTrigger>
+                </interactivity:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="1">
+                    <DataGridTemplateColumn MinWidth="100" Width="3*" Header="1">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Width="{Binding ActualWidth, ElementName=IndicatorTbl}" Text="{Binding Indicator, Mode=TwoWay}" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Indicator, Mode=TwoWay}" TextWrapping="Wrap"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="2">
+                    <DataGridTemplateColumn MinWidth="30" Width="0.4*"  Header="2">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Width="{Binding ActualWidth, ElementName=KEKVTbl}" Text="{Binding Name, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
+                                <TextBlock  Text="{Binding Name, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="3">
+                    <DataGridTemplateColumn MinWidth="33" Width="0.5*" Header="3">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Width="{Binding ActualWidth, ElementName=RowCodeTbl}" Text="{Binding RowCode, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
+                                <TextBlock Text="{Binding RowCode, Mode=TwoWay}" TextWrapping="WrapWithOverflow"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="4">
+                    <DataGridTemplateColumn MinWidth="70" Width="*" Header="4">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheBeginingTbl}" Text="{Binding AccountsReceivable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Text="{Binding AccountsReceivable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}">
+                                    <interactivity:Interaction.Triggers>
+                                        <interactivity:EventTrigger EventName="LostFocus">
+                                            <interactivity:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.ExpanderCommand}" CommandParameter="{Binding}" />
+                                        </interactivity:EventTrigger>
+                                    </interactivity:Interaction.Triggers>
+                                </customControlls:NumericTextBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="5">
+                    <DataGridTemplateColumn MinWidth="70" Width="*" Header="5">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecAtTheEndTbl}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Text="{Binding AccountsReceivable.AtTheEndOfTheReportingPeriod, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="6">
+                    <DataGridTemplateColumn MinWidth="80" Width="1.25*" Header="6">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecOverdueTbl}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Text="{Binding AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="7">
+                    <DataGridTemplateColumn MinWidth="70" Width="*" Header="7">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccRecWrittenOffTbl}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, UpdateSourceTrigger=LostFocus}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Text="{Binding AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="8">
+                    <DataGridTemplateColumn MinWidth="70" Width="*" Header="8">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayAtTheBeginingTbl}" Text="{Binding AccountsPayable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Text="{Binding AccountsPayable.AtTheBeginingOfTheYear, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="9">
+                    <DataGridTemplateColumn IsReadOnly="True" MinWidth="70" Width="*" Header="9">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayAtTheEndTbl}" Text="{Binding AccountsPayable.AtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
+                                <TextBlock Text="{Binding AccountsPayable.AtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="10">
+                    <DataGridTemplateColumn MinWidth="70" Width="1.5*" Header="10">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayOverrDueTbl}" Text="{Binding AccountsPayable.OverdueAtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Text="{Binding AccountsPayable.OverdueAtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}">
+                                    <interactivity:Interaction.Triggers>
+                                        <interactivity:EventTrigger EventName="LostFocus">
+                                            <interactivity:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.CalculateAccountPayablesCommand}" CommandParameter="{Binding}" />
+                                        </interactivity:EventTrigger>
+                                    </interactivity:Interaction.Triggers>
+                                </customControlls:NumericTextBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="11">
+                    <DataGridTemplateColumn MinWidth="70" Width="1.5*" Header="11">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayDebtNotDueTbl}" Text="{Binding AccountsPayable.DebtNotDue, UpdateSourceTrigger=LostFocus}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Text="{Binding AccountsPayable.DebtNotDue, UpdateSourceTrigger=LostFocus}">
+                                    <interactivity:Interaction.Triggers>
+                                        <interactivity:EventTrigger EventName="LostFocus">
+                                            <interactivity:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.CalculateAccountPayablesCommand}" CommandParameter="{Binding}" />
+                                            <interactivity:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.HeaderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}, Path=CurrentColumn.DisplayIndex}" />
+                                        </interactivity:EventTrigger>
+                                    </interactivity:Interaction.Triggers>
+                                </customControlls:NumericTextBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="12">
+                    <DataGridTemplateColumn MinWidth="70" Width="*" Header="12">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=AccPayWrittenofTbl}" Text="{Binding AccountsPayable.WrittenOffSinceTheBeginningOfTheYear, UpdateSourceTrigger=LostFocus}"/>
+                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Text="{Binding AccountsPayable.WrittenOffSinceTheBeginningOfTheYear, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="13">
+                    <DataGridTemplateColumn MinWidth="80" Width="2.5*" Header="13">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <customControlls:NumericTextBox Style="{StaticResource NumericTextboxStyle}" Width="{Binding ActualWidth, ElementName=RegisteredBudgeteryTbl}" Text="{Binding RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
+                                <TextBlock Text="{Binding RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod, UpdateSourceTrigger=LostFocus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

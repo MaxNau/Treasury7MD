@@ -7,26 +7,28 @@ using System.Linq;
 using System.Windows.Input;
 using Treasury7MD.Commands;
 using System.Windows;
-using System.IO;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using System.Collections.Generic;
+using Treasury7MD.Models.OpenXML;
+using Treasury7MD.Models.DBF;
 
 namespace Treasury7MD.ViewModels
 {
-    public class Form7MDViewModel : PropertyChangedObserver
+    public partial class Form7MDViewModel : PropertyChangedObserver
     {
         private int menuSelectedItemIndex;
-        private ObservableCollection<KEKV> kekvs;
+        // private ObservableCollection<KEKV> KEKVs;
         public Form7MD Form { get; set; }
         private GridLength orgInfoRowHeight;
 
         public ICommand SaveFormCommand { get; set; }
         public ICommand CollapseOrganizationInfoCommand { get; set; }
         public ICommand ExportToWordDocxCommand { get; set; }
+        public ICommand CalculateAccountPayablesCommand { get; set; }
+        public ICommand ExportToDbfCommand { get; set; }
+        public ICommand HeaderCommand { get; set; }
 
         public Form7MDViewModel()
         {
+            CurrentDeviceWidth = SystemParameters.PrimaryScreenWidth - 100;
             OrgInfoRowHeight = new GridLength(4.75, GridUnitType.Star);
 
             Form = new Form7MD();
@@ -35,12 +37,28 @@ namespace Treasury7MD.ViewModels
                 string i, r;
                 Extensions.GetDescription(kekv, out i, out r);
 
-                Form.KEKVs.Add(new KEKV() {Indicator=i, RowCode=r, Name= (int)kekv });
+                Form.KEKVs.Add(new KEKV() { Indicator = i, RowCode = r, Name = (int)kekv });
             }
-            kekvs = new ObservableCollection<KEKV>(Form.KEKVs);
+            //kekvs = new ObservableCollection<KEKV>(Form.KEKVs);
             AccountsReceivable.Changed += KEKV_Changed;
+            AccountsPayable.Changed9 += KEKV_Changed9;
 
             LoadCommands();
+        }
+
+        public void ExportToDbf(object parameter)
+        {
+            DbfProvider.ExportForm7ToDBF("G:/", KEKVs);
+        }
+
+        public ObservableCollection<KEKV> KEKVs
+        {
+            get { return Form.KEKVs; }
+            set
+            {
+                Form.KEKVs = value;
+                OnPropertyChanged("KEKVs");
+            }
         }
 
         public GridLength OrgInfoRowHeight
@@ -65,193 +83,34 @@ namespace Treasury7MD.ViewModels
 
         private void LoadCommands()
         {
-            SaveFormCommand = new MyCommand(SaveForm, CanSaveForm);
-            CollapseOrganizationInfoCommand = new MyCommand(CollapseOrganizationInfo, CanCollapseOrganizationInfo);
-            ExportToWordDocxCommand = new MyCommand(ExportToWordDocx, CanExportToWordDocx);
+            SaveFormCommand = new RelayCommand(SaveForm);
+            CollapseOrganizationInfoCommand = new RelayCommand(CollapseOrganizationInfo);
+            ExportToWordDocxCommand = new RelayCommand(ExportToWordDocx);
+            ExportToDbfCommand = new RelayCommand(ExportToDbf);
+            CalculateAccountPayablesCommand = new RelayCommand(CalculateAccountPayables);
+            HeaderCommand = new RelayCommand(method);
         }
 
-        private bool CanExportToWordDocx(object obj)
+        public void method(object o)
         {
-            return true;
-        }
 
-        private void ExportToWordDocx()
+        }
+        // calculates values for summing cells
+        public void CalculateAccountPayables(object parameter)
         {
-            string filePath = @"C:\Users\Rionis\Downloads\d_10.docx";
-            string file = @"C:\Users\Rionis\Downloads\dd_10.docx";
-            IDictionary<String, BookmarkStart> bookmarkMap = new Dictionary<String, BookmarkStart>();
-
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            // the code that you want to measure comes here
-
-
-            byte[] byteArray = File.ReadAllBytes(file);
-            File.Copy(filePath, file, true);
-            using (MemoryStream stream = new MemoryStream())
-            {
-                stream.Write(byteArray, 0, (int)byteArray.Length);
-                using (WordprocessingDocument wordDocument = WordprocessingDocument.Open(file, true))
-                {
-                    // Change the document type to Document
-                    wordDocument.ChangeDocumentType(DocumentFormat.OpenXml.WordprocessingDocumentType.Document);
-
-                    // Get the MainPart of the document
-                    MainDocumentPart mainPart = wordDocument.MainDocumentPart;
-
-                    // Get the Document Settings Part
-                    DocumentSettingsPart documentSettingPart1 = mainPart.DocumentSettingsPart;
-
-                    // Create a new attachedTemplate and specify a relationship ID
-                    AttachedTemplate attachedTemplate1 = new AttachedTemplate() { Id = "relationId1" };
-
-                    // Append the attached template to the DocumentSettingsPart
-                    documentSettingPart1.Settings.Append(attachedTemplate1);
-
-                    // Add an ExternalRelationShip of type AttachedTemplate.
-                    // Specify the path of template and the relationship ID
-                    documentSettingPart1.AddExternalRelationship("http://schemas.openxmlformats.org/officeDocument/2006/relationships/attachedTemplate", new Uri(filePath, UriKind.Absolute), "relationId1");
-
-                    // Save the document
-
-
-                    foreach (
-                        BookmarkStart bookmarkStart in
-                        wordDocument.MainDocumentPart.Document.Body.Descendants<BookmarkStart>())
-                    {
-                        // foreach (BookmarkStart bookmarkStart in file.MainDocumentPart.RootElement.Descendants<BookmarkStart>())
-                        //{
-                        bookmarkMap[bookmarkStart.Name] = bookmarkStart;
-
-                    }
-
-                    foreach (BookmarkStart bookmark in bookmarkMap.Values)
-                    {
-                        Run bookmarkText = bookmark.NextSibling<Run>();
-                        if (bookmarkText != null)
-                        {
-                            bookmarkText.GetFirstChild<Text>().Text = "Test";
-                        }
-                    }
-
-                    bookmarkMap["OName"].NextSibling<Run>().GetFirstChild<Text>().Text = "TheCorporation";
-                    bookmarkMap["Territory"].NextSibling<Run>().GetFirstChild<Text>().Text = "Zone51";
-                    bookmarkMap["EDRPOU"].NextSibling<Run>().GetFirstChild<Text>().Text = "123661237";
-                    bookmarkMap["KOTAUU"].NextSibling<Run>().GetFirstChild<Text>().Text = "2212";
-                    bookmarkMap["KOPFG"].NextSibling<Run>().GetFirstChild<Text>().Text = "12";
-
-                    var tables = mainPart.Document.Descendants<Table>().ToList();
-
-                    var rows = tables[2].Elements<TableRow>().Where(row => row.Elements<TableCell>().Any(cell => cell.InnerText == "value")).ToList();
-
-                    int kekvLength = KEKVs.Count;
-
-                    for (int r = 0; r < kekvLength; r++)
-                    {
-
-                        var cells = rows[r].Elements<TableCell>();
-
-
-                        Paragraph p = cells.ElementAt(3).Elements<Paragraph>().First();
-                        Run run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].AccountsReceivable.AtTheBeginingOfTheYear.ToString();
-                        }
-
-                        p = cells.ElementAt(4).Elements<Paragraph>().First();
-                        run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].AccountsReceivable.AtTheEndOfTheReportingPeriod.ToString();
-                        }
-
-                        p = cells.ElementAt(5).Elements<Paragraph>().First();
-                        run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod.ToString();
-                        }
-
-                        p = cells.ElementAt(6).Elements<Paragraph>().First();
-                        run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].AccountsReceivable.WrittenOffSinceTheBeginningOfTheYear.ToString();
-                        }
-
-                        p = cells.ElementAt(7).Elements<Paragraph>().First();
-                        run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].AccountsPayable.AtTheBeginingOfTheYear.ToString();
-                        }
-
-                        p = cells.ElementAt(8).Elements<Paragraph>().First();
-                        run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].AccountsPayable.AtTheEndOfTheReportingPeriod.ToString();
-                        }
-
-                        p = cells.ElementAt(9).Elements<Paragraph>().First();
-                        run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].AccountsPayable.OverdueAtTheEndOfTheReportingPeriod.ToString();
-                        }
-
-                        p = cells.ElementAt(10).Elements<Paragraph>().First();
-                        run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].AccountsPayable.DebtNotDue.ToString();
-                        }
-
-                        p = cells.ElementAt(11).Elements<Paragraph>().First();
-                        run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].AccountsPayable.WrittenOffSinceTheBeginningOfTheYear.ToString();
-                        }
-
-                        p = cells.ElementAt(12).Elements<Paragraph>().First();
-                        run = p.Elements<Run>().FirstOrDefault();
-                        if (run != null)
-                        {
-                            Text t = run.Elements<Text>().FirstOrDefault();
-                            t.Text = KEKVs[r].RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod.ToString();
-                        }
-                    }
-                    
-                    
-
-                    mainPart.Document.Save();
-                }
-
-                //      File.WriteAllBytes(file, stream.ToArray());
-            }
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-
-            MessageBox.Show(elapsedMs.ToString());
-
+            KEKV kekv = parameter as KEKV;
+            kekv.AccountsPayable.AtTheEndOfTheReportingPeriod = kekv.AccountsPayable.OverdueAtTheEndOfTheReportingPeriod + kekv.AccountsPayable.DebtNotDue;
+            kekv.RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod = kekv.AccountsPayable.AtTheEndOfTheReportingPeriod;
         }
 
-        private bool CanCollapseOrganizationInfo(object obj)
+        // export to Word document (Docx extension)
+        private void ExportToWordDocx(object parameter)
         {
-            return true;
+            OpenXmlProvider.ExportForm7ToWordDocx(@"C:\Users\Rionis\Downloads\dd_10.docx", KEKVs);
         }
 
-        private void CollapseOrganizationInfo()
+        // hides organization info
+        private void CollapseOrganizationInfo(object parameter)
         {
             if (OrgInfoRowHeight.Value > 0)
                 OrgInfoRowHeight = new GridLength(0, GridUnitType.Star);
@@ -259,38 +118,34 @@ namespace Treasury7MD.ViewModels
                 OrgInfoRowHeight = new GridLength(4.75, GridUnitType.Star);
         }
 
-        private bool CanSaveForm(object obj)
+        // calculates row totals
+        private void KEKV_Changed()
         {
-            return true;
-        }
+            var totalCosts = KEKVs.FirstOrDefault(x => x.Name == 2000);
 
-        private void KEKV_Changed(int name, double value)
-        {
-            var totalCosts = kekvs.FirstOrDefault(x => x.Name == 2000);
+            var calcSalaryAndTaxes = KEKVs.FirstOrDefault(x => x.Name == 2100);
+            var salaryAndTaxesKEKVs = KEKVs.Where(x => x.Name > 2100 & x.Name <= 2120);
 
-            var calcSalaryAndTaxes = kekvs.FirstOrDefault(x => x.Name == 2100);
-            var salaryAndTaxesKEKVs = kekvs.Where(x => x.Name > 2100 & x.Name <= 2120);
+            var calcGoodsAndServices = KEKVs.FirstOrDefault(x => x.Name == 2200);
+            var goodsAndServicesKEKVs = KEKVs.Where(x => x.Name > 2200 & x.Name <= 2282);
 
-            var calcGoodsAndServices = kekvs.FirstOrDefault(x => x.Name == 2200);
-            var goodsAndServicesKEKVs = kekvs.Where(x => x.Name > 2200 & x.Name <= 2282);
+            var calcUtilitiesAndEnergy = KEKVs.FirstOrDefault(x => x.Name == 2270);
+            var utilitiesAndEnergy = KEKVs.Where(x => x.Name > 2270 & x.Name <= 2276);
 
-            var calcUtilitiesAndEnergy = kekvs.FirstOrDefault(x => x.Name == 2270);
-            var utilitiesAndEnergy = kekvs.Where(x => x.Name > 2270 & x.Name <= 2276);
+            var calcRnD = KEKVs.FirstOrDefault(x => x.Name == 2280);
+            var rnD = KEKVs.Where(x => x.Name > 2280 & x.Name <= 2282);
 
-            var calcRnD = kekvs.FirstOrDefault(x => x.Name == 2280);
-            var rnD = kekvs.Where(x => x.Name > 2280 & x.Name <= 2282);
+            var calcDebtService = KEKVs.FirstOrDefault(x => x.Name == 2400);
+            var debtService = KEKVs.Where(x => x.Name > 2400 & x.Name <= 2420);
 
-            var calcDebtService = kekvs.FirstOrDefault(x => x.Name == 2400);
-            var debtService = kekvs.Where(x => x.Name > 2400 & x.Name <= 2420);
+            var calcCurrTransfers = KEKVs.FirstOrDefault(x => x.Name == 2600);
+            var currTransfers = KEKVs.Where(x => x.Name > 2600 & x.Name <= 2630);
 
-            var calcCurrTransfers = kekvs.FirstOrDefault(x => x.Name == 2600);
-            var currTransfers = kekvs.Where(x => x.Name > 2600 & x.Name <= 2630);
+            var calcSocialWelfaer = KEKVs.FirstOrDefault(x => x.Name == 2700);
+            var socialWelfaer = KEKVs.Where(x => x.Name > 2700 & x.Name <= 2730);
 
-            var calcSocialWelfaer = kekvs.FirstOrDefault(x => x.Name == 2700);
-            var socialWelfaer = kekvs.Where(x => x.Name > 2700 & x.Name <= 2730);
-
-            var calcAqustionOfCapital = kekvs.FirstOrDefault(x => x.Name == 3100);
-            var aqustionOfCapital = kekvs.Where(x => x.Name > 3100 & x.Name <= 3160);
+            var calcAqustionOfCapital = KEKVs.FirstOrDefault(x => x.Name == 3100);
+            var aqustionOfCapital = KEKVs.Where(x => x.Name > 3100 & x.Name <= 3160);
 
             AccountsReceivable.Changed -= KEKV_Changed;
             calcSalaryAndTaxes.AccountsReceivable.AtTheBeginingOfTheYear = salaryAndTaxesKEKVs.Sum(x=>x.AccountsReceivable.AtTheBeginingOfTheYear);
@@ -309,15 +164,53 @@ namespace Treasury7MD.ViewModels
             AccountsReceivable.Changed += KEKV_Changed;
         }
 
-        public ObservableCollection<KEKV> KEKVs
+        private void KEKV_Changed9()
         {
-            get { return kekvs; }
-            set { kekvs = value;
-                OnPropertyChanged("KEKVs"); 
-            }
+            var totalCosts = KEKVs.FirstOrDefault(x => x.Name == 2000);
+
+            var calcSalaryAndTaxes = KEKVs.FirstOrDefault(x => x.Name == 2100);
+            var salaryAndTaxesKEKVs = KEKVs.Where(x => x.Name > 2100 & x.Name <= 2120);
+
+            var calcGoodsAndServices = KEKVs.FirstOrDefault(x => x.Name == 2200);
+            var goodsAndServicesKEKVs = KEKVs.Where(x => x.Name > 2200 & x.Name <= 2282);
+
+            var calcUtilitiesAndEnergy = KEKVs.FirstOrDefault(x => x.Name == 2270);
+            var utilitiesAndEnergy = KEKVs.Where(x => x.Name > 2270 & x.Name <= 2276);
+
+            var calcRnD = KEKVs.FirstOrDefault(x => x.Name == 2280);
+            var rnD = KEKVs.Where(x => x.Name > 2280 & x.Name <= 2282);
+
+            var calcDebtService = KEKVs.FirstOrDefault(x => x.Name == 2400);
+            var debtService = KEKVs.Where(x => x.Name > 2400 & x.Name <= 2420);
+
+            var calcCurrTransfers = KEKVs.FirstOrDefault(x => x.Name == 2600);
+            var currTransfers = KEKVs.Where(x => x.Name > 2600 & x.Name <= 2630);
+
+            var calcSocialWelfaer = KEKVs.FirstOrDefault(x => x.Name == 2700);
+            var socialWelfaer = KEKVs.Where(x => x.Name > 2700 & x.Name <= 2730);
+
+            var calcAqustionOfCapital = KEKVs.FirstOrDefault(x => x.Name == 3100);
+            var aqustionOfCapital = KEKVs.Where(x => x.Name > 3100 & x.Name <= 3160);
+
+            AccountsReceivable.Changed9 -= KEKV_Changed9;
+            calcSalaryAndTaxes.AccountsPayable.AtTheEndOfTheReportingPeriod = salaryAndTaxesKEKVs.Sum(x => x.AccountsPayable.AtTheEndOfTheReportingPeriod);
+            calcGoodsAndServices.AccountsPayable.AtTheEndOfTheReportingPeriod = goodsAndServicesKEKVs.Sum(x => x.AccountsPayable.AtTheEndOfTheReportingPeriod);
+            calcUtilitiesAndEnergy.AccountsPayable.AtTheEndOfTheReportingPeriod = utilitiesAndEnergy.Sum(x => x.AccountsPayable.AtTheEndOfTheReportingPeriod);
+            calcRnD.AccountsPayable.AtTheEndOfTheReportingPeriod = rnD.Sum(x => x.AccountsPayable.AtTheEndOfTheReportingPeriod);
+            calcDebtService.AccountsPayable.AtTheEndOfTheReportingPeriod = debtService.Sum(x => x.AccountsPayable.AtTheEndOfTheReportingPeriod);
+            calcCurrTransfers.AccountsPayable.AtTheEndOfTheReportingPeriod = currTransfers.Sum(x => x.AccountsPayable.AtTheEndOfTheReportingPeriod);
+            calcSocialWelfaer.AccountsPayable.AtTheEndOfTheReportingPeriod = socialWelfaer.Sum(x => x.AccountsPayable.AtTheEndOfTheReportingPeriod);
+            calcAqustionOfCapital.AccountsPayable.AtTheEndOfTheReportingPeriod = aqustionOfCapital.Sum(x => x.AccountsPayable.AtTheEndOfTheReportingPeriod);
+
+            totalCosts.AccountsPayable.AtTheEndOfTheReportingPeriod = calcSalaryAndTaxes.AccountsPayable.AtTheEndOfTheReportingPeriod +
+                calcGoodsAndServices.AccountsPayable.AtTheEndOfTheReportingPeriod + calcDebtService.AccountsPayable.AtTheEndOfTheReportingPeriod +
+                calcCurrTransfers.AccountsPayable.AtTheEndOfTheReportingPeriod + calcSocialWelfaer.AccountsPayable.AtTheEndOfTheReportingPeriod +
+                calcAqustionOfCapital.AccountsPayable.AtTheEndOfTheReportingPeriod;
+            AccountsReceivable.Changed9 += KEKV_Changed9;
         }
 
-        private void SaveForm()
+        // saves form to database
+        private void SaveForm(object parameter)
         {
            try {
                 using (var context = new TreasuryEntity())
@@ -330,7 +223,37 @@ namespace Treasury7MD.ViewModels
             }
             catch (Exception e)
             {
-                System.Windows.MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message);
+            }
+        }
+    }
+
+    public partial class Form7MDViewModel : PropertyChangedObserver
+    {
+
+        private double currentDeviceWidth;
+
+        private int i;
+        public void SelectionIndex(object sender, EventArgs e)
+        {
+            var dg = sender as System.Windows.Controls.DataGrid;
+            KEKV kekv = dg.CurrentCell.Item as KEKV;
+            i = KEKVs.IndexOf(kekv);
+            
+
+        }
+
+        public void LostFocus(object sender, RoutedEventArgs e)
+        {
+            KEKVs[i].AccountsReceivable.AtTheEndOfTheReportingPeriod += KEKVs[i].AccountsReceivable.OverdueAtTheEndOfTheReportingPeriod;
+            KEKVs[i].RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod = KEKVs[i].AccountsReceivable.AtTheEndOfTheReportingPeriod;
+        }
+
+        public double CurrentDeviceWidth
+        {
+            get { return currentDeviceWidth; }
+            set { currentDeviceWidth = value;
+                OnPropertyChanged("CurrentDeviceWidth");
             }
         }
     }

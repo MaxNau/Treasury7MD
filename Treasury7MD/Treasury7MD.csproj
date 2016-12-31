@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -46,6 +46,24 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -90,25 +108,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\MyCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="CustomControls\NumericTextBox.cs" />
     <Compile Include="DB\DBConnection.cs" />
     <Compile Include="DB\TreasuryEntity.cs" />
     <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\KEKVAttribute.cs" />
-    <Compile Include="Migrations\201612170350262_TreasuryEntity.cs" />
-    <Compile Include="Migrations\201612170350262_TreasuryEntity.Designer.cs">
-      <DependentUpon>201612170350262_TreasuryEntity.cs</DependentUpon>
+    <Compile Include="Migrations\201612271920192_InitialCreate.cs" />
+    <Compile Include="Migrations\201612271920192_InitialCreate.Designer.cs">
+      <DependentUpon>201612271920192_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountsPayable.cs" />
     <Compile Include="Models\AccountsReceivable.cs" />
     <Compile Include="Models\ADepartmentalClassification.cs" />
+    <Compile Include="Models\DBF\DbfProvider.cs" />
     <Compile Include="Models\Debt.cs" />
     <Compile Include="Models\Form7MD.cs" />
     <Compile Include="Models\Form7MDOrganizationInfo.cs" />
     <Compile Include="Models\KEKV.cs" />
+    <Compile Include="Models\OpenXML\OpenXmlProvider.cs" />
     <Compile Include="Models\PropertyChangedObserver.cs" />
     <Compile Include="ViewModels\Form7MDViewModel.cs" />
     <Compile Include="ViewModels\TreasuryViewModel.cs" />
@@ -179,19 +199,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201612170350262_TreasuryEntity.resx">
-      <DependentUpon>201612170350262_TreasuryEntity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612271920192_InitialCreate.resx">
+      <DependentUpon>201612271920192_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.Config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Templates\d_10.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -199,20 +221,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Icons\Save.png" />
-    <Content Include="DB\TreasuryDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DB\TreasuryDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>TreasuryDB.mdf</DependentUpon>
-    </Content>
-    <Content Include="TreasuryDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TreasuryDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>TreasuryDB.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -230,6 +238,15 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DB\TreasuryDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DB\TreasuryDB_log.ldf">
+      <DependentUpon>TreasuryDB.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

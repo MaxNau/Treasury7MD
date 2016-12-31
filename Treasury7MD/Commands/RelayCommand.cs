@@ -6,12 +6,12 @@ using System.Windows.Input;
 
 namespace Treasury7MD.Commands
 {
-    public class MyCommand : ICommand
+    public class RelayCommand : ICommand
     {
-        private Action execute;
-        private Predicate<object> canExecute;
+        private Action<object> execute;
+        private Func<bool> canExecute;
 
-        public MyCommand(Action execute, Predicate<object> canExecute)
+        public RelayCommand(Action<object> execute, Func<bool> canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute;
@@ -31,13 +31,12 @@ namespace Treasury7MD.Commands
 
         public bool CanExecute(object parameter)
         {
-            bool isExecute = canExecute == null ? true : canExecute(parameter);
-            return isExecute;
+            return canExecute == null ? true : canExecute();
         }
 
         public void Execute(object parameter)
         {
-            execute();
+            execute(parameter);
         }
     }
 }

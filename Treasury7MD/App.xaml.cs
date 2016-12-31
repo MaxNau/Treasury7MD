@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Treasury7MD.DB;
 
 namespace Treasury7MD
 {
@@ -7,6 +8,6 @@ namespace Treasury7MD
     /// </summary>
     public partial class App : Application
     {
-        
+
     }
 }

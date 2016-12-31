@@ -3,7 +3,7 @@ namespace Treasury7MD.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class TreasuryEntity : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {

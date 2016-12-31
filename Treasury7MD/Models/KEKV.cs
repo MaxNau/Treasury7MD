@@ -3,8 +3,9 @@ using Treasury7MD.Helpers;
 
 namespace Treasury7MD.Models
 {
-    public class KEKV
+    public class KEKV : PropertyChangedObserver
     {
+        private double regBudgetAccPayableAtTheEndOfTheRepPer;
         [NotMapped]
         public string Indicator { get; set; }
         [NotMapped]
@@ -14,12 +15,21 @@ namespace Treasury7MD.Models
         public int Name { get; set; }
         public AccountsReceivable AccountsReceivable { get; set; }
         public AccountsPayable AccountsPayable { get; set; }
-        public double RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod { get; set; }
 
         public KEKV()
         {
             AccountsReceivable = new AccountsReceivable();
             AccountsPayable = new AccountsPayable();
+        }
+
+        public double RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod
+        {
+            get { return regBudgetAccPayableAtTheEndOfTheRepPer; }
+            set
+            {
+                regBudgetAccPayableAtTheEndOfTheRepPer = value;
+                OnPropertyChanged("RegisteredBudgetaryAccountsPayableAtTheEndOfTheReportingPeriod");
+            }
         }
 
         public enum KEKVCode
