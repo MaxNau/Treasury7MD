@@ -3,11 +3,11 @@
 namespace Treasury7MD.Views
 {
     /// <summary>
-    /// Interaction logic for ExportMenuView.xaml
+    /// Interaction logic for Form7TableView.xaml
     /// </summary>
-    public partial class ExportMenuView : UserControl
+    public partial class Form7TableView : UserControl
     {
-        public ExportMenuView()
+        public Form7TableView()
         {
             InitializeComponent();
         }

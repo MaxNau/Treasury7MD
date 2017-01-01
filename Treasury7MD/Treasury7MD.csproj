@@ -109,6 +109,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="CustomControls\MaskedTextBox.cs" />
     <Compile Include="CustomControls\NumericTextBox.cs" />
     <Compile Include="DB\DBConnection.cs" />
     <Compile Include="DB\TreasuryEntity.cs" />
@@ -139,8 +140,11 @@
     <Compile Include="Views\ExportMenuView.xaml.cs">
       <DependentUpon>ExportMenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form7MDTableHeadeView.xaml.cs">
-      <DependentUpon>Form7MDTableHeadeView.xaml</DependentUpon>
+    <Compile Include="Views\Form7View.xaml.cs">
+      <DependentUpon>Form7View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Form7TableView.xaml.cs">
+      <DependentUpon>Form7TableView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrganizationInfoView.xaml.cs">
       <DependentUpon>OrganizationInfoView.xaml</DependentUpon>
@@ -172,7 +176,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form7MDTableHeadeView.xaml">
+    <Page Include="Views\Form7View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Form7TableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

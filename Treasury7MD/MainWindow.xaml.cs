@@ -1,7 +1,4 @@
-﻿
-using System.Data.OleDb;
-using System.Windows;
-using Treasury7MD.DB;
+﻿using System.Windows;
 using Treasury7MD.Views;
 
 namespace Treasury7MD

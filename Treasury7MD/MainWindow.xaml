@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
 
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                <views:Form7MDTableHeadeView></views:Form7MDTableHeadeView>
+                <views:Form7View></views:Form7View>
             </ScrollViewer>
 
         </Grid>

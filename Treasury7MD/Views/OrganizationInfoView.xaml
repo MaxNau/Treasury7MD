@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xx="clr-namespace:Treasury7MD.CustomControls"
              mc:Ignorable="d">
     <Grid Margin="20,5,20,0">
         <Grid.Resources>
@@ -40,8 +41,7 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="на"></TextBlock>
             <TextBlock Text="01"></TextBlock>
-            <TextBox Name="MonthTb"></TextBox>
-            <TextBox Name="YearTb"></TextBox>
+            <xx:MaskedTextBox Mask="Date" Height="20" Width="100" CaretBrush="#00000000"></xx:MaskedTextBox>
             <TextBlock Text="р."></TextBlock>
         </StackPanel>
         <Grid Grid.Row="3">
