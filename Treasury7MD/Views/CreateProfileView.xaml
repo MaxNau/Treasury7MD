@@ -10,7 +10,7 @@
     <Window.DataContext>
         <vm:CreateOrganizationProfileViewModel></vm:CreateOrganizationProfileViewModel>
     </Window.DataContext>
-    <Grid>
+    <Grid  Margin="20,5,20,0">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
