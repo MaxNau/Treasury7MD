@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Treasury7MD.DB;
 
 namespace Treasury7MD
 {

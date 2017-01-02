@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Treasury7MD.CustomControls
@@ -31,6 +32,11 @@ namespace Treasury7MD.CustomControls
                 {
                     e.Handled = true;
                 }
+            }
+
+            if (Regex.IsMatch(Text, @"\.\d\d"))
+            {
+                e.Handled = true;
             }
         }
 

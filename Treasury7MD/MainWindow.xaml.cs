@@ -33,5 +33,17 @@ namespace Treasury7MD
             }
             var t = this;*/
         }
+
+        private void MenuItem_Click2(object sender, RoutedEventArgs e)
+        {
+            CreateProfileView create = new CreateProfileView();
+            create.ShowDialog();
+
+        }
+
+        private void MenuItem_Click3(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

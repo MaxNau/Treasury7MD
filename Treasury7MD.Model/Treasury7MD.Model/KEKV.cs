@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Treasury7MD.Helpers;
+using Treasury7MD.Model.Helpers;
 
-namespace Treasury7MD.Models
+namespace Treasury7MD.Model
 {
     public class KEKV : PropertyChangedObserver
     {

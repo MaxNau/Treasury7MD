@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModels="clr-namespace:Treasury7MD.ViewModels"
-             xmlns:customControlls="clr-namespace:Treasury7MD.CustomControls"
              xmlns:helpers="clr-namespace:Treasury7MD.Helpers"
              xmlns:views="clr-namespace:Treasury7MD.Views"
              xmlns:interactions="http://schemas.microsoft.com/expression/2010/interactions"
@@ -76,6 +75,6 @@
                 </ListView>
             </Grid>
         </DockPanel>
-        <views:Form7TableView Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2"></views:Form7TableView>
+        <views:Form7TableView Grid.Column="1" Grid.Row="2"/>
     </Grid>
 </UserControl>

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 
-
-namespace Treasury7MD.Models
+namespace Treasury7MD.Model
 {
     public abstract class PropertyChangedObserver : INotifyPropertyChanged
     {

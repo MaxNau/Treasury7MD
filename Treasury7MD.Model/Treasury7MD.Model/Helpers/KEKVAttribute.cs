@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace Treasury7MD.Helpers
+namespace Treasury7MD.Model.Helpers
 {
     [AttributeUsage(AttributeTargets.Field)]
     public class KEKVDescriptionAttribute : DescriptionAttribute

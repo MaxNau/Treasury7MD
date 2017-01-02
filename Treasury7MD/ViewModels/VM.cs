@@ -1,6 +1,5 @@
 ﻿using System;
-using Treasury7MD.Models;
-
+using Treasury7MD.Model;
 
 namespace Treasury7MD.ViewModels
 {

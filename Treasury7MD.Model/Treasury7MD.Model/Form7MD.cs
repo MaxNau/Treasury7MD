@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
 
-namespace Treasury7MD.Models
+namespace Treasury7MD.Model
 {
     public class Form7MD
     {

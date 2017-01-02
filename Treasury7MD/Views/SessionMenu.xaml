@@ -31,6 +31,30 @@
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Зберегти" Foreground="White" Margin="2"/>
                 </StackPanel>
             </Button>
+            <Button Background="#FF130C0C" Click="Button_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16" Height="16" Margin="4" Source="/Treasury7MD;component/Content/Icons/Save.png"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Профілі" Foreground="White" Margin="2"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -36,42 +36,38 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Звіт" HorizontalAlignment="Center"></TextBlock>
-        <TextBlock Grid.Row="1" Text="про заборгованість за бюджетними коштами (форма № 7д, № 7м)" HorizontalAlignment="Center"></TextBlock>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Text="Звіт" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Text="про заборгованість за бюджетними коштами (форма № 7д, № 7м)" HorizontalAlignment="Center"></TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <TextBlock Text="на"></TextBlock>
             <TextBlock Text="01"></TextBlock>
             <xx:MaskedTextBox Mask="Date" Height="20" Width="100" CaretBrush="#00000000"></xx:MaskedTextBox>
             <TextBlock Text="р."></TextBlock>
         </StackPanel>
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="8*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.04*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.05*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Установа"></TextBlock>
             <TextBox Grid.Column="1"></TextBox>
             <TextBlock Grid.Column="2" Text="ЄДРПОУ"></TextBlock>
             <TextBox Grid.Column="3"></TextBox>
-        </Grid>
-        <Grid Grid.Row="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="8*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Територія"></TextBlock>
-            <TextBox Grid.Column="1"></TextBox>
-            <TextBlock Grid.Column="2" Text="КОАТУУ"></TextBlock>
-            <TextBox Grid.Column="3"></TextBox>
-        </Grid>
+             </Grid>
+        </DockPanel>
+        <DockPanel Grid.Row="4">
+            <TextBlock DockPanel.Dock="Left" Text="Територія"></TextBlock>
+            <TextBox DockPanel.Dock="Left" Text="{Binding Territory, Mode=TwoWay}"></TextBox>
+            <TextBlock DockPanel.Dock="Left" Text="КОАТУУ"></TextBlock>
+            <TextBox DockPanel.Dock="Left" ></TextBox>
+        </DockPanel>
         <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
-                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -86,17 +82,17 @@
         </StackPanel>
         <StackPanel Grid.Row="7" Orientation="Horizontal">
             <TextBlock Text="Код та назва програмної класифікації видатків та кредитування державного бюджету"></TextBlock>
-            <TextBox Width="490"></TextBox>
+            <TextBox ></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="8" Orientation="Horizontal">
             <TextBlock Text="Код та назва типової відомчої класифікації видатків та кредитування місцевих бюджетів"></TextBlock>
-            <TextBox Width="455"></TextBox>
+            <TextBox ></TextBox>
         </StackPanel>
         <TextBlock Grid.Row="9" Text="Код та назва програмної класифікації видатків та кредитування місцевих бюджетів (код та назва Типової програмної класифікації видатків та кредиту-"></TextBlock>
         <TextBlock Grid.Row="10" Text="вання місцевих бюджетів / Тимчасової класифікації видатків та кредитування для бюджетів місцевого самоврядування, які не застосовують програмно-"></TextBlock>
         <StackPanel Grid.Row="11" Orientation="Horizontal">
             <TextBlock Text="цільового методу)*"></TextBlock>
-            <TextBox Width="600"></TextBox>
+            <TextBox ></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="12" Orientation="Horizontal">
             <TextBlock Text="Періодичність:"></TextBlock>

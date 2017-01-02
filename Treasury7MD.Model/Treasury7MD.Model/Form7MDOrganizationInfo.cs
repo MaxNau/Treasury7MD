@@ -1,9 +1,9 @@
 ﻿
-
-namespace Treasury7MD.Models
+namespace Treasury7MD.Model
 {
     public class Form7MDOrganizationInfo
     {
+        public int Id { get; set; }
         public string OrganizationName { get; set; }
         public string Territory { get; set; }
         public string EDRPOU { get; set; }

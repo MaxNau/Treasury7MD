@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Treasury7MD.DB;
 using Treasury7MD.Helpers;
-using Treasury7MD.Models;
+using Treasury7MD.Model;
 using System.Linq;
 using System.Windows.Input;
 using Treasury7MD.Commands;
 using System.Windows;
 using Treasury7MD.Models.OpenXML;
 using Treasury7MD.Models.DBF;
+using Treasury7MD.Utilities;
+using Treasury7MD.DAL;
 
 namespace Treasury7MD.ViewModels
 {
     public partial class Form7MDViewModel : PropertyChangedObserver
     {
+        ITreasuryRepository rep = new TreasuryRepository();
+
         private int menuSelectedItemIndex;
         // private ObservableCollection<KEKV> KEKVs;
         public Form7MD Form { get; set; }
@@ -28,7 +31,16 @@ namespace Treasury7MD.ViewModels
 
         public Form7MDViewModel()
         {
-            CurrentDeviceWidth = SystemParameters.PrimaryScreenWidth - 100;
+            Messenger.Default.Register<Form7MDOrganizationInfo>(this, UpdateOrganizationInfo);
+
+            currentDeviceWidth = SystemParameters.PrimaryScreenWidth;
+            if (currentDeviceWidth == 1360 || currentDeviceWidth == 1280)
+                CurrentDeviceWidth = SystemParameters.PrimaryScreenWidth - 100;
+            else if (currentDeviceWidth == 1024)
+                CurrentDeviceWidth = SystemParameters.PrimaryScreenWidth - 100;
+            else if (currentDeviceWidth == 800)
+                CurrentDeviceWidth = SystemParameters.PrimaryScreenWidth + 300;
+
             OrgInfoRowHeight = new GridLength(4.75, GridUnitType.Star);
 
             Form = new Form7MD();
@@ -44,6 +56,19 @@ namespace Treasury7MD.ViewModels
             AccountsPayable.Changed9 += KEKV_Changed9;
 
             LoadCommands();
+        }
+
+        private void UpdateOrganizationInfo(object obj)
+        {
+            
+        }
+
+        public string Territory
+        {
+            get { return Form.OrganizationInfo.Territory; }
+            set { Form.OrganizationInfo.Territory = value;
+                OnPropertyChanged("Territory");
+            }
         }
 
         public void ExportToDbf(object parameter)
@@ -212,19 +237,20 @@ namespace Treasury7MD.ViewModels
         // saves form to database
         private void SaveForm(object parameter)
         {
-           try {
-                using (var context = new TreasuryEntity())
-                {
-                    context.Forms.Add(Form);
+            /* try {
+                  using (var context = new TreasuryEntity())
+                  {
+                      context.Forms.Add(Form);
 
-                    context.Entry(Form).State = System.Data.Entity.EntityState.Added;
-                    context.SaveChanges();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+                      context.Entry(Form).State = System.Data.Entity.EntityState.Added;
+                      context.SaveChanges();
+                  }
+              }
+              catch (Exception e)
+              {
+                  MessageBox.Show(e.Message);
+              }*/
+            rep.SaveForm7(Form);
         }
     }
 
@@ -239,8 +265,6 @@ namespace Treasury7MD.ViewModels
             var dg = sender as System.Windows.Controls.DataGrid;
             KEKV kekv = dg.CurrentCell.Item as KEKV;
             i = KEKVs.IndexOf(kekv);
-            
-
         }
 
         public void LostFocus(object sender, RoutedEventArgs e)

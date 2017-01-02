@@ -1,5 +1,5 @@
 ﻿
-namespace Treasury7MD.Models
+namespace Treasury7MD.Model
 {
     public abstract class ADepartmentalClassification : PropertyChangedObserver
     {
