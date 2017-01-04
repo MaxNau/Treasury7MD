@@ -13,7 +13,7 @@ namespace Treasury7MD.Models.DBF
                 con.Open();
                 //Creating clients.dbf table
                 OleDbCommand create = con.CreateCommand();
-                create.CommandText = "CREATE TABLE [" + "Table" + "] ([KB] numeric(0), [EDRPOY] char(10), [KVK] numeric(2), [KFK] numeric(6)," +
+                create.CommandText = "CREATE TABLE [" + "Table" + "] ([date] date, [KB] numeric(0), [EDRPOY] char(10), [KVK] numeric(2), [KFK] numeric(6)," +
                     "[KOD] char(20), [ID_] char(3), [KPOL] char(5), [UDK] numeric(1), [RAY] numeric(1), [RVDK] numeric(1)," +
                     " [N1] numeric(13,2), [N2] numeric(13,2), [N3] numeric(13,2), [N4] numeric(13,2)," +
                     "[N5] numeric(13,2), [N6] numeric(13,2), [N7] numeric(13,2), [N8] numeric(13,2), [N9] numeric(13,2)," +
@@ -31,8 +31,8 @@ namespace Treasury7MD.Models.DBF
             {
                 con.Open();
                 //Creating clients.dbf table
-                string insertString = "insert into Table (KB, EDRPOY, KVK, KFK, KOD, ID_, KPOL, UDK, RAY, RVDK, N1," +
-                    "N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, N12, N13, N14, N15, N16, N17, N18, N19) values (?, ?, ?, ?," +
+                string insertString = "insert into Table (date, KB, EDRPOY, KVK, KFK, KOD, ID_, KPOL, UDK, RAY, RVDK, N1," +
+                    "N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, N12, N13, N14, N15, N16, N17, N18, N19) values (?, ?, ?, ?, ?," +
                     "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 OleDbCommand insert = new OleDbCommand(insertString, con);
 
@@ -40,6 +40,9 @@ namespace Treasury7MD.Models.DBF
                 {
                     if (IsEmptyKekvRecord(kekv))
                     {
+                        System.DateTime orddate = System.DateTime.ParseExact("11/02/2016", "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+                        insert.Parameters.AddWithValue("date", orddate);
                         insert.Parameters.AddWithValue("KB", 1);
                         insert.Parameters.AddWithValue("EDRPOY", "ss");
                         insert.Parameters.AddWithValue("KVK", 1);

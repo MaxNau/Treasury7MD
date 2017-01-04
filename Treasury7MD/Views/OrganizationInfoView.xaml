@@ -3,14 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:xx="clr-namespace:Treasury7MD.CustomControls"
-             mc:Ignorable="d" MinHeight="325" MaxWidth="{Binding CurrentDeviceWidth}">
+             mc:Ignorable="d" MaxHeight="250" MaxWidth="{Binding CurrentDeviceWidth}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="0.15*"></ColumnDefinition>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="0.4*"></ColumnDefinition>
+            <ColumnDefinition Width="0.4*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="65" Width="0.1*"></ColumnDefinition>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.Resources>
             <Style TargetType="TextBlock">
@@ -27,80 +26,59 @@
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Text="Звіт" HorizontalAlignment="Center"></TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Text="про заборгованість за бюджетними коштами (форма № 7д, № 7м)" HorizontalAlignment="Center"></TextBlock>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-            <TextBlock Text="на"></TextBlock>
-            <TextBlock Text="01"></TextBlock>
-            <xx:MaskedTextBox Mask="Date" Height="20" Width="100" CaretBrush="#00000000"></xx:MaskedTextBox>
-            <TextBlock Text="р."></TextBlock>
-        </StackPanel>
-        <DockPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+        <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
             <TextBlock Text="Установа"></TextBlock>
             <TextBox></TextBox>
         </DockPanel>
-        <TextBlock Grid.Row="3" Grid.Column="2" Text="ЄДРПОУ"></TextBlock>
-        <TextBox Text="{Binding EDRPOU, Mode=TwoWay}" Grid.Row="3" Grid.Column="3"></TextBox>
-        <DockPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="ЄДРПОУ"></TextBlock>
+        <TextBox Text="{Binding EDRPOU, Mode=TwoWay}" Grid.Row="0" Grid.Column="3"></TextBox>
+        <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
             <TextBlock Text="Територія"></TextBlock>
             <TextBox Text="{Binding Territory, Mode=TwoWay}"></TextBox>
         </DockPanel>
-        <TextBlock Grid.Column="2" Grid.Row="4" Text="КОАТУУ"></TextBlock>
-        <TextBox Grid.Column="3" Grid.Row="4" Text="{Binding KOATUU}"></TextBox>
-        <DockPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2">
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="КОАТУУ"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding KOATUU}"></TextBox>
+        <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
             <TextBlock Text="Організаційно-правова форма господарювання"></TextBlock>
             <TextBox Text="{Binding OPFG}"></TextBox>
         </DockPanel>
-        <TextBlock Grid.Column="2" Grid.Row="5" Text="КОПФГ"></TextBlock>
-        <TextBox Grid.Column="3" Grid.Row="5" Text="{Binding KOPFG}"></TextBox>
-        <DockPanel Grid.Row="6" Grid.ColumnSpan="2">
+        <TextBlock Grid.Column="2" Grid.Row="2" Text="КОПФГ"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding KOPFG}"></TextBox>
+        <DockPanel Grid.Row="3" Grid.ColumnSpan="4">
             <TextBlock Text="Код"></TextBlock>
             <TextBox Text="{Binding VKVKDBCode}"></TextBox>
-            <TextBlock Text="та назва відомчої класифікації видатків та кредитування державного бюджету"></TextBlock>
+            <TextBlock Text="та назва відомчої КВК державного бюджету"></TextBlock>
             <TextBox Text="{Binding VKVKDBName}"></TextBox>
         </DockPanel>
-        <DockPanel Grid.Row="7" Grid.ColumnSpan="2">
+        <DockPanel Grid.Row="4" Grid.ColumnSpan="4">
             <TextBlock Text="Код"></TextBlock>
             <TextBox Text="{Binding PKVKDBCode}"></TextBox>
-            <TextBlock Text="та назва програмної класифікації видатків та кредитування державного бюджету"></TextBlock>
+            <TextBlock Text="та назва програмної КВК державного бюджету"></TextBlock>
             <TextBox Text="{Binding PKVKDBName}"></TextBox>
         </DockPanel>
-        <DockPanel Grid.Row="8" Grid.ColumnSpan="2">
+        <DockPanel Grid.Row="5" Grid.ColumnSpan="4">
             <TextBlock Text="Код"></TextBlock>
             <TextBox Text="{Binding TVKVKMBCode}"></TextBox>
-            <TextBlock Text="та назва типової відомчої класифікації видатків та кредитування місцевих бюджетів"></TextBlock>
+            <TextBlock Text="та назва типової відомчої КВК місцевих бюджетів"></TextBlock>
             <TextBox Text="{Binding TVKVKMBName}"></TextBox>
         </DockPanel>
-        <DockPanel Grid.Row="9" Grid.ColumnSpan="2">
+        <DockPanel Grid.Row="6" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <TextBlock Text="Код"></TextBlock>
             <TextBox Text="{Binding PKVKMBCode}"></TextBox>
-            <TextBlock Text="та назва програмної класифікації видатків та кредитування місцевих бюджетів (код та назва Типової програмної класифікації видатків та кредиту-"></TextBlock>
+            <TextBlock Text="та назва програмної КВК місцевих бюджетів (код та назва Типової програмної класифікації видатків та кредитування місцевих бюджетів / Тимчасової КВК для бюджетів місцевого самоврядування, які не застосовують програмно-цільового методу)*" TextWrapping="Wrap"></TextBlock>
         </DockPanel>
-        <TextBlock Grid.Row="10" Grid.ColumnSpan="2" Text="вання місцевих бюджетів / Тимчасової класифікації видатків та кредитування для бюджетів місцевого самоврядування, які не застосовують програмно-"></TextBlock>
-        <DockPanel Grid.Row="11" Grid.ColumnSpan="2">
-            <TextBlock Text="цільового методу)*"></TextBlock>
+        <DockPanel Grid.Row="8" Grid.ColumnSpan="4">
             <TextBox Text="{Binding PKVKMBName}"></TextBox>
         </DockPanel>
-        <StackPanel Grid.Row="12" Orientation="Horizontal">
-            <TextBlock Text="Періодичність:"></TextBlock>
-            <RadioButton Content="Місячна" IsChecked="true" VerticalContentAlignment="Center"/>
-            <RadioButton Content="Квартальна" VerticalContentAlignment="Center"/>
-            <RadioButton Content="Річна" VerticalContentAlignment="Center"/>
-        </StackPanel>
     </Grid>
 </UserControl>

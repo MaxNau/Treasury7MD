@@ -1,4 +1,5 @@
-﻿using Treasury7MD.Model;
+﻿using System.Windows;
+using Treasury7MD.Model;
 
 namespace Treasury7MD.ViewModels
 {
@@ -18,6 +19,11 @@ namespace Treasury7MD.ViewModels
                 orgInfo.Territory = value;
                 OnPropertyChanged("Territory");
             }
+        }
+
+        public double OrganizationInfoViewWidth
+        {
+            get { return SystemParameters.PrimaryScreenWidth * 0.8 + 40; }
         }
 
         public Form7MDOrganizationInfo OrgInfo

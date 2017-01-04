@@ -8,6 +8,7 @@
              xmlns:views="clr-namespace:Treasury7MD.Views"
              xmlns:interactions="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:xx="clr-namespace:Treasury7MD.CustomControls"
              mc:Ignorable="d" >
     
     <UserControl.DataContext>
@@ -27,15 +28,32 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="{Binding OrgInfoRowHeight}"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="3.5*"/>
         </Grid.RowDefinitions>
         <Button x:Name="collapseOrgInfoBtn" Command="{Binding CollapseOrganizationInfoCommand}" Grid.Row="0" Grid.Column="2" Margin="5">
-           
         </Button>
-        <views:OrganizationInfoView Grid.Row="1" Grid.Column="1"></views:OrganizationInfoView>
-        <DockPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="4">
+        <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Text="Звіт" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" Text="про заборгованість за бюджетними коштами (форма № 7д, № 7м)" HorizontalAlignment="Center"></TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center">
+            <TextBlock Text="на"></TextBlock>
+            <TextBlock Text="01"></TextBlock>
+            <xx:MaskedTextBox Mask="Date" Height="20" Width="100" CaretBrush="#00000000"></xx:MaskedTextBox>
+            <TextBlock Text="р."></TextBlock>
+        </StackPanel>
+        <views:OrganizationInfoView Grid.Row="4" Grid.Column="1"></views:OrganizationInfoView>
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" Margin="20,0,20,0">
+            <TextBlock Text="Періодичність:" VerticalAlignment="Center"></TextBlock>
+            <RadioButton Content="Місячна" IsChecked="true" VerticalContentAlignment="Center"/>
+            <RadioButton Content="Квартальна" VerticalContentAlignment="Center"/>
+            <RadioButton Content="Річна" VerticalContentAlignment="Center"/>
+        </StackPanel>
+        <DockPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="5">
             <Grid VerticalAlignment="Top">
                 <ListView x:Name="z" SelectedIndex="{Binding MenuSelectedItemIndex}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                     <interactivity:Interaction.Triggers>
@@ -57,16 +75,36 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </ListView.LayoutTransform>
-                    <TextBlock Text="Сесія"  ContextMenuService.PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" ContextMenuService.Placement="Relative" LayoutUpdated="TextBlock_LayoutUpdated" >
+                    <TextBlock ContextMenuService.IsEnabled="False" Text="Сесія"  ContextMenuService.PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" ContextMenuService.Placement="Relative" LayoutUpdated="TextBlock_LayoutUpdated" >
+                        <interactivity:Interaction.Triggers>
+                            <interactivity:EventTrigger EventName="MouseLeftButtonDown">
+                                <interactions:ChangePropertyAction TargetName="sessionContextMenu" PropertyName="PlacementTarget" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"></interactions:ChangePropertyAction>
+                                <interactions:ChangePropertyAction TargetName="sessionContextMenu" PropertyName="Placement" Value="Relative"></interactions:ChangePropertyAction>
+                            </interactivity:EventTrigger>
+                            <interactivity:EventTrigger EventName="MouseLeftButtonUp">
+                                <interactions:ChangePropertyAction TargetName="sessionContextMenu" PropertyName="IsOpen" Value="true"></interactions:ChangePropertyAction>
+                                <interactions:ChangePropertyAction TargetName="sessionContextMenu" PropertyName="StaysOpen" Value="true"></interactions:ChangePropertyAction>
+                            </interactivity:EventTrigger>
+                        </interactivity:Interaction.Triggers>
                         <TextBlock.ContextMenu >
-                            <ContextMenu x:Name="xx">
+                            <ContextMenu x:Name="sessionContextMenu">
                                 <views:SessionMenu></views:SessionMenu>
                             </ContextMenu>
                         </TextBlock.ContextMenu>
                     </TextBlock>
-                    <TextBlock Text="Експорт" ContextMenuService.PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" ContextMenuService.Placement="Relative">
+                    <TextBlock Text="Експорт" ContextMenuService.IsEnabled="False" ContextMenuService.PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" ContextMenuService.Placement="Relative">
+                        <interactivity:Interaction.Triggers>
+                            <interactivity:EventTrigger EventName="MouseLeftButtonDown">
+                                <interactions:ChangePropertyAction TargetName="exportContextMenu" PropertyName="PlacementTarget" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"></interactions:ChangePropertyAction>
+                                <interactions:ChangePropertyAction TargetName="exportContextMenu" PropertyName="Placement" Value="Relative"></interactions:ChangePropertyAction>
+                            </interactivity:EventTrigger>
+                            <interactivity:EventTrigger EventName="MouseLeftButtonUp">
+                                <interactions:ChangePropertyAction TargetName="exportContextMenu" PropertyName="IsOpen" Value="true"></interactions:ChangePropertyAction>
+                                <interactions:ChangePropertyAction TargetName="exportContextMenu" PropertyName="StaysOpen" Value="true"></interactions:ChangePropertyAction>
+                            </interactivity:EventTrigger>
+                        </interactivity:Interaction.Triggers>
                         <TextBlock.ContextMenu>
-                            <ContextMenu Height="200" Style="{StaticResource Form7Menu}">
+                            <ContextMenu x:Name="exportContextMenu" Height="200" Style="{StaticResource Form7Menu}">
                                 <views:ExportMenuView></views:ExportMenuView>
                             </ContextMenu>
                         </TextBlock.ContextMenu>
@@ -75,6 +113,6 @@
                 </ListView>
             </Grid>
         </DockPanel>
-        <views:Form7TableView Grid.Column="1" Grid.Row="2"/>
+        <views:Form7TableView Grid.Column="1" Grid.Row="6"/>
     </Grid>
 </UserControl>
