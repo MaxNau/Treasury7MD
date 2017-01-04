@@ -38,47 +38,47 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
             <TextBlock Text="Установа"></TextBlock>
-            <TextBox Text="{Binding OrganizatioName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.OrganizatioName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </DockPanel>
         <TextBlock Grid.Row="0" Grid.Column="2" Text="ЄДРПОУ"></TextBlock>
-        <TextBox Text="{Binding EDRPOU, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="3"></TextBox>
+        <TextBox Text="{Binding OrganizationInfo.EDRPOU, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="3"></TextBox>
         <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
             <TextBlock Text="Територія"></TextBlock>
-            <TextBox Text="{Binding Territory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.Territory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </DockPanel>
         <TextBlock Grid.Column="2" Grid.Row="1" Text="КОАТУУ"></TextBlock>
         <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding KOATUU, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
             <TextBlock Text="Організаційно-правова форма господарювання"></TextBlock>
-            <TextBox Text="{Binding OPFG, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.OPFG, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </DockPanel>
         <TextBlock Grid.Column="2" Grid.Row="2" Text="КОПФГ"></TextBlock>
         <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding KOPFG, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <DockPanel Grid.Row="3" Grid.ColumnSpan="4">
             <TextBlock Text="Код"></TextBlock>
-            <TextBox Text="{Binding VKVKDBCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.VKVKDBCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Text="та назва відомчої КВК державного бюджету"></TextBlock>
-            <TextBox Text="{Binding VKVKDBName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.VKVKDBName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </DockPanel>
         <DockPanel Grid.Row="4" Grid.ColumnSpan="4">
             <TextBlock Text="Код"></TextBlock>
-            <TextBox Text="{Binding PKVKDBCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.PKVKDBCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Text="та назва програмної КВК державного бюджету"></TextBlock>
-            <TextBox Text="{Binding PKVKDBName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.PKVKDBName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </DockPanel>
         <DockPanel Grid.Row="5" Grid.ColumnSpan="4">
             <TextBlock Text="Код"></TextBlock>
-            <TextBox Text="{Binding TVKVKMBCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.TVKVKMBCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Text="та назва типової відомчої КВК місцевих бюджетів"></TextBlock>
-            <TextBox Text="{Binding TVKVKMBName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.TVKVKMBName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </DockPanel>
         <DockPanel Grid.Row="6" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <TextBlock Text="Код"></TextBlock>
-            <TextBox Text="{Binding PKVKMBCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.PKVKMBCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Text="та назва програмної КВК місцевих бюджетів (код та назва Типової програмної класифікації видатків та кредитування місцевих бюджетів / Тимчасової КВК для бюджетів місцевого самоврядування, які не застосовують програмно-цільового методу)*" TextWrapping="Wrap"></TextBlock>
         </DockPanel>
         <DockPanel Grid.Row="8" Grid.ColumnSpan="4">
-            <TextBox Text="{Binding PKVKMBName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding OrganizationInfo.PKVKMBName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </DockPanel>
     </Grid>
 </UserControl>

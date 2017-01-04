@@ -6,6 +6,9 @@
         xmlns:views="clr-namespace:Treasury7MD.Views"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized">
+    <Window.Background>
+        <ImageBrush ImageSource="Content/Images/flag.jpg"/>
+    </Window.Background>
     <Grid>
         <Menu x:Name="menu" HorizontalAlignment="Left" MinHeight="18" VerticalAlignment="Top">
             <MenuItem Header="Довідники">

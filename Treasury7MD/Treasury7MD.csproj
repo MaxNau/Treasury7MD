@@ -270,5 +270,14 @@
       <Name>Treasury7MD.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\flag.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\field.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\sky.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

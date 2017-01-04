@@ -15,11 +15,21 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding EDRPOU}" Margin="0,0,5,0"></TextBlock>
-                        <TextBlock Text="{Binding VKVKDBCode}" Margin="0,0,5,0"></TextBlock>
-                        <TextBlock Text="{Binding PKVKDBCode}" Margin="0,0,5,0"></TextBlock>
-                        <TextBlock Text="{Binding TVKVKMBCode}" Margin="0,0,5,0"></TextBlock>
-                        <TextBlock Text="{Binding PKVKMBCode}" Margin="0,0,5,0"></TextBlock>
+                        <Border BorderThickness="1,1,0,1" BorderBrush="Black">
+                            <TextBlock Text="{Binding EDRPOU}" Margin="0,0,5,0"></TextBlock>
+                        </Border>
+                        <Border BorderThickness="1,1,0,1" BorderBrush="Black">
+                            <TextBlock Text="{Binding VKVKDBCode}" Margin="0,0,5,0"></TextBlock>
+                        </Border>
+                        <Border BorderThickness="1,1,0,1" BorderBrush="Black">
+                            <TextBlock Text="{Binding PKVKDBCode}" Margin="0,0,5,0"></TextBlock>
+                        </Border>
+                        <Border BorderThickness="1,1,0,1" BorderBrush="Black">
+                            <TextBlock Text="{Binding TVKVKMBCode}" Margin="0,0,5,0"></TextBlock>
+                        </Border>
+                        <Border BorderThickness="1,1,1,1" BorderBrush="Black">
+                            <TextBlock Text="{Binding PKVKMBCode}" Margin="0,0,5,0"></TextBlock>
+                        </Border>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

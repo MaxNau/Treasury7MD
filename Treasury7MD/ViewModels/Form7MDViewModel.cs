@@ -20,6 +20,11 @@ namespace Treasury7MD.ViewModels
         private int menuSelectedItemIndex;
         // private ObservableCollection<KEKV> KEKVs;
         public Form7MD Form { get; set; }
+        public Form7MDOrganizationInfo OrganizationInfo
+        {
+            get { return Form.OrganizationInfo; }
+            set { Form.OrganizationInfo = value; }
+        }
         private GridLength orgInfoRowHeight;
 
         public ICommand SaveFormCommand { get; set; }
@@ -35,7 +40,7 @@ namespace Treasury7MD.ViewModels
 
             currentDeviceWidth = SystemParameters.PrimaryScreenWidth;
             if (currentDeviceWidth == 1360 || currentDeviceWidth == 1280)
-                CurrentDeviceWidth = SystemParameters.PrimaryScreenWidth - 100;
+                CurrentDeviceWidth = SystemParameters.PrimaryScreenWidth - 60;
             else if (currentDeviceWidth == 1024)
                 CurrentDeviceWidth = SystemParameters.PrimaryScreenWidth - 100;
             else if (currentDeviceWidth == 800)
@@ -73,7 +78,7 @@ namespace Treasury7MD.ViewModels
 
         public void ExportToDbf(object parameter)
         {
-            DbfProvider.ExportForm7ToDBF("G:/", KEKVs);
+            DbfProvider.ExportForm7ToDBF("G:/", Form);
         }
 
         public ObservableCollection<KEKV> KEKVs

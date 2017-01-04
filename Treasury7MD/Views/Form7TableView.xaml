@@ -6,13 +6,13 @@
              xmlns:customControlls="clr-namespace:Treasury7MD.CustomControls"
              xmlns:interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactions="http://schemas.microsoft.com/expression/2010/interactions"
-             mc:Ignorable="d" >
-    <Grid >
+             mc:Ignorable="d"  Opacity="0.75">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="3.5*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid x:Name="c" Width="{Binding CurrentDeviceWidth}" Style="{StaticResource FormGridBorderStyle}" Grid.Row="0" Margin="20,0" VerticalAlignment="Bottom">
+        <Grid x:Name="c" Width="{Binding CurrentDeviceWidth}" Style="{StaticResource FormGridBorderStyle}" Grid.Row="0" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="*"/>
@@ -90,7 +90,7 @@
             </Border>
         </Grid>
 
-        <Grid Grid.Row="1" Style="{StaticResource FormGridBorderStyle}" Margin="20,0,20,20" >
+        <Grid Grid.Row="1" Style="{StaticResource FormGridBorderStyle}">
             <Grid.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="BorderThickness" Value="0"/>

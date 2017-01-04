@@ -23,7 +23,7 @@ namespace Treasury7MD.Models.DBF
             }
         }
 
-        public static void ExportForm7ToDBF(string path, ObservableCollection<KEKV> KEKVs)
+        public static void ExportForm7ToDBF(string path, Form7MD form)
         {
             CreateForm7DBFTable(path);
 
@@ -36,17 +36,17 @@ namespace Treasury7MD.Models.DBF
                     "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 OleDbCommand insert = new OleDbCommand(insertString, con);
 
-                foreach (KEKV kekv in KEKVs)
+                foreach (KEKV kekv in form.KEKVs)
                 {
                     if (IsEmptyKekvRecord(kekv))
                     {
                         System.DateTime orddate = System.DateTime.ParseExact("11/02/2016", "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
                         insert.Parameters.AddWithValue("KB", 1);
-                        insert.Parameters.AddWithValue("EDRPOY", "ss");
+                        insert.Parameters.AddWithValue("EDRPOY", form.OrganizationInfo.EDRPOU);
                         insert.Parameters.AddWithValue("KVK", 1);
                         insert.Parameters.AddWithValue("KFK", 1);
-                        insert.Parameters.AddWithValue("KOD", "ww");
+                        insert.Parameters.AddWithValue("KOD", ((int)(kekv.Name)).ToString());
                         insert.Parameters.AddWithValue("ID_", "1");
                         insert.Parameters.AddWithValue("KPOL", "22");
                         insert.Parameters.AddWithValue("UDK", 1);
