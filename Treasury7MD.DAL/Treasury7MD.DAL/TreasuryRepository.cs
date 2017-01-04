@@ -7,16 +7,24 @@ namespace Treasury7MD.DAL
     {
         public void SaveForm7(Form7MD form)
         {
+            using (var context = new TreasuryEntity())
+            {
+                context.Forms.Add(form);
 
-                using (var context = new TreasuryEntity())
-                {
-                    context.Forms.Add(form);
+                context.Entry(form).State = System.Data.Entity.EntityState.Added;
+                context.SaveChanges();
+            }          
+        }
 
-                    context.Entry(form).State = System.Data.Entity.EntityState.Added;
-                    context.SaveChanges();
-                }
-            
+        public void SaveOrgInfo(Form7MDOrganizationInfo form)
+        {
+            using (var context = new TreasuryEntity())
+            {
+                context.Profiles.Add(form);
 
+                context.Entry(form).State = System.Data.Entity.EntityState.Added;
+                context.SaveChanges();
+            }
         }
     }
 }

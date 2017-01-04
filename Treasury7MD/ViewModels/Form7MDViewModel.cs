@@ -60,7 +60,7 @@ namespace Treasury7MD.ViewModels
 
         private void UpdateOrganizationInfo(object obj)
         {
-            
+            Territory = (obj as Form7MDOrganizationInfo).Territory;
         }
 
         public string Territory

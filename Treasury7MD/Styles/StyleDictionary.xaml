@@ -23,6 +23,15 @@
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
+            <EventTrigger RoutedEvent="KeyDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsReadOnly">
+                            <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="False"></DiscreteBooleanKeyFrame>
+                        </BooleanAnimationUsingKeyFrames>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
             <EventTrigger RoutedEvent="LostFocus">
                 <BeginStoryboard>
                     <Storyboard>
@@ -34,7 +43,6 @@
             </EventTrigger>
         </Style.Triggers>
         <Setter Property="BorderThickness" Value="0"></Setter>
-        <Setter Property="CaretBrush" Value="Transparent"></Setter>
         <Setter Property="IsReadOnly" Value="True"></Setter>
     </Style>
 

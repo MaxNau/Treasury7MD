@@ -12,15 +12,17 @@
     </Window.DataContext>
     <Grid>
         <ListView Name="dg" ItemsSource="{Binding List}">
-            <ListView.View>
-                
-                    <GridView>
-                    <GridViewColumn >
-                        <TextBlock Text="{Binding Territory}"></TextBlock>
-                    </GridViewColumn >
-                    </GridView>
-               
-            </ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding EDRPOU}" Margin="0,0,5,0"></TextBlock>
+                        <TextBlock Text="{Binding VKVKDBCode}" Margin="0,0,5,0"></TextBlock>
+                        <TextBlock Text="{Binding PKVKDBCode}" Margin="0,0,5,0"></TextBlock>
+                        <TextBlock Text="{Binding TVKVKMBCode}" Margin="0,0,5,0"></TextBlock>
+                        <TextBlock Text="{Binding PKVKMBCode}" Margin="0,0,5,0"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
